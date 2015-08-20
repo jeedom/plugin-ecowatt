@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>ecowatt</id>
+    <name>Ecowatt</name>
+    <description>Plugin qui remonte les informations Ecowatt PACA et Bretagne</description>
+    <icon>fa fa-battery-quarter</icon>
+    <licence>AGPL</licence>
+    <author>Marie</author>
+    <installation>Aucune</installation>
+    <require>1.205</require>
+    <category>energy</category>
+</info>
+
