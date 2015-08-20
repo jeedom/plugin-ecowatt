@@ -47,38 +47,45 @@ class ecowatt extends eqLogic {
 
 	/*     * *********************Méthodes d'instance************************* */
 
-	public function preInsert() {
-
-	}
-
-	public function postInsert() {
-
-	}
-
-	public function preSave() {
-
-	}
-
 	public function postSave() {
+		if ($this->getConfiguration('datasource') == 'ecowatt' || $this->getConfiguration('datasource') == 'ejp') {
+			$today = $this->getCmd(null, 'today');
+			if (!is_object($today)) {
+				$today = new ecowattCmd();
+				$today->setLogicalId('today');
+				$today->setIsVisible(1);
+				$today->setName(__('Aujourd\'hui', __FILE__));
+				$today->setOrder(1);
+			}
+			$today->setType('info');
+			$today->setSubType('string');
+			$today->setEqLogic_id($this->getId());
+			$today->save();
 
+			$tomorrow = $this->getCmd(null, 'tomorrow');
+			if (!is_object($tomorrow)) {
+				$tomorrow = new ecowattCmd();
+				$tomorrow->setLogicalId('tomorrow');
+				$tomorrow->setIsVisible(1);
+				$tomorrow->setName(__('Demain', __FILE__));
+				$tomorrow->setOrder(2);
+			}
+			$tomorrow->setType('info');
+			$tomorrow->setSubType('string');
+			$tomorrow->setEqLogic_id($this->getId());
+			$tomorrow->save();
+		}
+		if ($this->getConfiguration('datasource') == 'eco2mix') {
+			$today = $this->getCmd(null, 'today');
+			if (is_object($today)) {
+				$today->remove();
+			}
+			$tomorrow = $this->getCmd(null, 'tomorrow');
+			if (is_object($tomorrow)) {
+				$tomorrow->remove();
+			}
+		}
 	}
-
-	public function preUpdate() {
-
-	}
-
-	public function postUpdate() {
-
-	}
-
-	public function preRemove() {
-
-	}
-
-	public function postRemove() {
-
-	}
-
 	/*
 	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
 	public function toHtml($_version = 'dashboard') {
