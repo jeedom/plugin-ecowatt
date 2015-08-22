@@ -15,7 +15,12 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+ $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+
+ $('.eqLogicAttr[data-l1key=configuration][data-l2key=datasource]').on('change',function(){
+    $('.datasource').hide();
+    $('.datasource.'+$(this).value()).show();
+});
 
 /*
  * Fonction pour l'ajout de commande, appellé automatiquement par plugin.template
