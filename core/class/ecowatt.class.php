@@ -35,7 +35,12 @@ class ecowatt extends eqLogic {
 	 * Fonction exécutée automatiquement toutes les heures par Jeedom	 */
 	public static function cronHourly() {
 		foreach (self::byType('ecowatt') as $ecowatt) {
-
+			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp') {
+				if (date('H') != 1 && date('H') != 5) {
+					continue;
+				}
+			}
+			$ecowatt->updateInfo();
 		}
 	}
 
@@ -88,21 +93,39 @@ class ecowatt extends eqLogic {
 				$tomorrow->remove();
 			}
 		}
+		$this->updateInfo();
 	}
 
 	public function updateInfo() {
 		switch ($this->getConfiguration('datasource')) {
 			case 'ecowatt':
+				$url = '';
 				switch ($this->getConfiguration('region-ew')) {
 					case 'bretagne':
-
+						$url = 'http://www.ecowatt-bretagne.fr/restez-au-courant/alertes-2/';
 						break;
 
 					case 'paca':
-						$request_http = new com_http('http://www.ecowatt-paca.fr/restez-au-courant/alertes-2/');
-						$data = $request_http->exec();
-						echo $data;
+						$url = 'http://www.ecowatt-paca.fr/restez-au-courant/alertes-2/';
 						break;
+				}
+				if ($url == '') {
+					return;
+				}
+				$request_http = new com_http($url);
+				$html = $request_http->exec();
+				phpQuery::newDocumentHTML($html);
+				$result = pq('div.alertes.small')->html();
+				$result = substr($result, strpos($result, 'alt="Alerte ') + 12);
+				$result = substr($result, 0, strpos($result, '"'));
+				$result = explode(' ', $result);
+				$today = $this->getCmd(null, 'today');
+				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($result[0])) {
+					$today->event($result[0]);
+				}
+				$tomorrow = $this->getCmd(null, 'tomorrow');
+				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($result[1])) {
+					$tomorrow->event($result[1]);
 				}
 				break;
 			case 'ejp':
