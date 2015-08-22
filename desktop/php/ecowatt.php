@@ -90,7 +90,7 @@ foreach (object::all() as $object) {
         <div class="form-group">
         <label class="col-sm-3 control-label">{{Région}}</label>
             <div class="col-sm-3">
-                <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region">
+                <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ew">
                     <option value="bretagne">{{Bretagne}}</option>
                     <option value="paca">{{Provence-Alpes-Côtes d'Azur}}</option>
                 </select>
@@ -101,7 +101,7 @@ foreach (object::all() as $object) {
         <div class="form-group">
         <label class="col-sm-3 control-label">{{Région}}</label>
             <div class="col-sm-3">
-                <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region">
+                <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ejp">
                     <option value="z-nord">{{Zone Nord}}</option>
                     <option value="z-paca">{{Zone Provence, Alpes, Côtes d'Azur}}</option>
                     <option value="z-ouest">{{Zone Ouest}}</option>

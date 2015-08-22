@@ -9,5 +9,6 @@
     <installation>Aucune</installation>
     <require>1.205</require>
     <category>energy</category>
+    <include type="php">ecowatt.inc</include>
 </info>
 

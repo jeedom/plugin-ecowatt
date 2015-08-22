@@ -32,11 +32,12 @@ class ecowatt extends eqLogic {
 	 */
 
 	/*
-	 * Fonction exécutée automatiquement toutes les heures par Jeedom
+	 * Fonction exécutée automatiquement toutes les heures par Jeedom	 */
 	public static function cronHourly() {
+		foreach (self::byType('ecowatt') as $ecowatt) {
 
+		}
 	}
-	 */
 
 	/*
 	 * Fonction exécutée automatiquement tous les jours par Jeedom
@@ -60,6 +61,7 @@ class ecowatt extends eqLogic {
 			$today->setType('info');
 			$today->setSubType('string');
 			$today->setEqLogic_id($this->getId());
+			$today->setEventOnly(1);
 			$today->save();
 
 			$tomorrow = $this->getCmd(null, 'tomorrow');
@@ -73,6 +75,7 @@ class ecowatt extends eqLogic {
 			$tomorrow->setType('info');
 			$tomorrow->setSubType('string');
 			$tomorrow->setEqLogic_id($this->getId());
+			$tomorrow->setEventOnly(1);
 			$tomorrow->save();
 		}
 		if ($this->getConfiguration('datasource') == 'eco2mix') {
@@ -86,6 +89,31 @@ class ecowatt extends eqLogic {
 			}
 		}
 	}
+
+	public function updateInfo() {
+		switch ($this->getConfiguration('datasource')) {
+			case 'ecowatt':
+				switch ($this->getConfiguration('region-ew')) {
+					case 'bretagne':
+
+						break;
+
+					case 'paca':
+						$request_http = new com_http('http://www.ecowatt-paca.fr/restez-au-courant/alertes-2/');
+						$data = $request_http->exec();
+						echo $data;
+						break;
+				}
+				break;
+			case 'ejp':
+				# code...
+				break;
+			case 'eco2mix':
+				# code...
+				break;
+		}
+	}
+
 	/*
 	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
 	public function toHtml($_version = 'dashboard') {
