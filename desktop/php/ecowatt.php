@@ -50,7 +50,7 @@ foreach ($eqLogics as $eqLogic) {
         <fieldset>
             <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
             <div class="form-group">
-                <label class="col-sm-3 control-label">{{Nom de l'équipement EcoWatt}}</label>
+                <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
                 <div class="col-sm-3">
                     <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                     <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement ecowatt}}"/>
