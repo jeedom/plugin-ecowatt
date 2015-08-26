@@ -104,7 +104,6 @@ class ecowatt extends eqLogic {
 					case 'bretagne':
 						$url = 'http://www.ecowatt-bretagne.fr/restez-au-courant/alertes-2/';
 						break;
-
 					case 'paca':
 						$url = 'http://www.ecowatt-paca.fr/restez-au-courant/alertes-2/';
 						break;
