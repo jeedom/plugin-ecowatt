@@ -54,7 +54,16 @@ class ecowatt extends eqLogic {
 	/*     * *********************Méthodes d'instance************************* */
 
 	public function postSave() {
-		if ($this->getConfiguration('datasource') == 'ecowatt' || $this->getConfiguration('datasource') == 'ejp') {
+		if ($this->getConfiguration('datasource') == 'ecowatt') {
+			$remainingDays = $this->getCmd(null, 'remainingDays');
+			if (is_object($remainingDays)) {
+				$remainingDays->remove();
+			}
+			$totalDays = $this->getCmd(null, 'totalDays');
+			if (is_object($today)) {
+				$totalDays->remove();
+			}
+
 			$today = $this->getCmd(null, 'today');
 			if (!is_object($today)) {
 				$today = new ecowattCmd();
@@ -83,6 +92,64 @@ class ecowatt extends eqLogic {
 			$tomorrow->setEventOnly(1);
 			$tomorrow->save();
 		}
+		if ($this->getConfiguration('datasource') == 'ejp') {
+			$today = $this->getCmd(null, 'today');
+			if (!is_object($today)) {
+				$today = new ecowattCmd();
+				$today->setLogicalId('today');
+				$today->setIsVisible(1);
+				$today->setName(__('Aujourd\'hui', __FILE__));
+				$today->setOrder(1);
+			}
+			$today->setType('info');
+			$today->setSubType('string');
+			$today->setEqLogic_id($this->getId());
+			$today->setEventOnly(1);
+			$today->save();
+
+			$tomorrow = $this->getCmd(null, 'tomorrow');
+			if (!is_object($tomorrow)) {
+				$tomorrow = new ecowattCmd();
+				$tomorrow->setLogicalId('tomorrow');
+				$tomorrow->setIsVisible(1);
+				$tomorrow->setName(__('Demain', __FILE__));
+				$tomorrow->setOrder(2);
+			}
+			$tomorrow->setType('info');
+			$tomorrow->setSubType('string');
+			$tomorrow->setEqLogic_id($this->getId());
+			$tomorrow->setEventOnly(1);
+			$tomorrow->save();
+
+			$remainingDays = $this->getCmd(null, 'remainingDays');
+			if (!is_object($remainingDays)) {
+				$remainingDays = new ecowattCmd();
+				$remainingDays->setLogicalId('remainingDays');
+				$remainingDays->setIsVisible(1);
+				$remainingDays->setName(__('Jours EJP restants', __FILE__));
+				$remainingDays->setOrder(3);
+			}
+			$remainingDays->setType('info');
+			$remainingDays->setSubType('numeric');
+			$remainingDays->setEqLogic_id($this->getId());
+			$remainingDays->setEventOnly(1);
+			$remainingDays->save();
+
+			$totalDays = $this->getCmd(null, 'totalDays');
+			if (!is_object($totalDays)) {
+				$totalDays = new ecowattCmd();
+				$totalDays->setLogicalId('totalDays');
+				$totalDays->setIsVisible(1);
+				$totalDays->setName(__('Total de jours EJP', __FILE__));
+				$totalDays->setOrder(4);
+			}
+			$totalDays->setType('info');
+			$totalDays->setSubType('numeric');
+			$totalDays->setEqLogic_id($this->getId());
+			$totalDays->setEventOnly(1);
+			$totalDays->save();
+		}
+
 		if ($this->getConfiguration('datasource') == 'eco2mix') {
 			$today = $this->getCmd(null, 'today');
 			if (is_object($today)) {
@@ -91,6 +158,14 @@ class ecowatt extends eqLogic {
 			$tomorrow = $this->getCmd(null, 'tomorrow');
 			if (is_object($tomorrow)) {
 				$tomorrow->remove();
+			}
+			$remainingDays = $this->getCmd(null, 'remainingDays');
+			if (is_object($remainingDays)) {
+				$remainingDays->remove();
+			}
+			$totalDays = $this->getCmd(null, 'totalDays');
+			if (is_object($today)) {
+				$totalDays->remove();
 			}
 		}
 		$this->updateInfo();
@@ -127,9 +202,88 @@ class ecowatt extends eqLogic {
 					$tomorrow->event($result[1]);
 				}
 				break;
+
 			case 'ejp':
-				# code...
-				break;
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempo?searchType=ejp');
+				$ejpdays = $request_http->exec();
+				if (!is_json($ejpdays)) {
+					return;
+				}
+				$ejpdays = json_decode($ejpdays, true);
+				if (!isset($ejpdays['success']) || $ejpdays['success'] != 1) {
+					return;
+				}
+				$ejpdays['data'] = json_decode($ejpdays['data'], true);
+				$found_region = null;
+				foreach ($ejpdays['data']['dtos'] as $region) {
+					if ($region['region'] == $this->getConfiguration('region-ejp')) {
+						$found_region = $region;
+						break;
+					}
+				}
+				$value = 'Non déterminé';
+				if (isset($found_region['values'][0])) {
+					if (($found_region['values'][0]) == 'NON') {
+						$value = 'Pas d\'EJP';
+					} else {
+						$value = 'EJP';
+					}
+				}
+				$today = $this->getCmd(null, 'today');
+				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($value)) {
+					$today->event($value);
+				}
+				$value = 'Non déterminé';
+				if (isset($found_region['values'][1])) {
+					if (($found_region['values'][1]) == 'NON') {
+						$value = 'Pas d\'EJP';
+					} else {
+						$value = 'EJP';
+					}
+				}
+				$tomorrow = $this->getCmd(null, 'tomorrow');
+				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($value)) {
+					$tomorrow->event($value);
+				}
+
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodays?searchType=ejp');
+				$ejptotaldays = $request_http->exec();
+				if (!is_json($ejptotaldays)) {
+					return;
+				}
+				$ejptotaldays = json_decode($ejptotaldays, true);
+				if (!isset($ejptotaldays['success']) || $ejptotaldays['success'] != 1) {
+					return;
+				}
+				$ejptotaldays['data'] = json_decode($ejptotaldays['data'], true);
+				$found_region = null;
+				print_r($ejptotaldays);
+				foreach ($ejptotaldays['data']['dtos'] as $region) {
+					if ($region['region'] == $this->getConfiguration('region-ejp')) {
+						$found_region = $region;
+						break;
+					}
+				}
+				if (isset($found_region['remainingDays'])) {
+					$value = $found_region['remainingDays'];
+				} else {
+					$value = 'error::N/A';
+				}
+				$remainingDays = $this->getCmd(null, 'remainingDays');
+				if (is_object($remainingDays) && $remainingDays->execCmd(null, 2) !== $remainingDays->formatValue($value)) {
+					$remainingDays->event($value);
+				}
+				if (isset($found_region['totalDays'])) {
+					$value = $found_region['totalDays'];
+				} else {
+					$value = 'error::N/A';
+				}
+
+				$totalDays = $this->getCmd(null, 'totalDays');
+				if (is_object($totalDays) && $totalDays->execCmd(null, 2) !== $totalDays->formatValue($value)) {
+					$totalDays->event($value);
+				}
+
 			case 'eco2mix':
 				# code...
 				break;

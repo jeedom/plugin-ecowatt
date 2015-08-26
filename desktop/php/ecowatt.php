@@ -22,11 +22,11 @@ foreach ($eqLogics as $eqLogic) {
    </div>
 
    <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-     <legend>{{Mes Eco 2 Watts}}
-     </legend>
-     <div class="eqLogicThumbnailContainer">
+       <legend>{{Mes Eco 2 Watts}}
+       </legend>
+       <div class="eqLogicThumbnailContainer">
         <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-         <center>
+           <center>
             <i class="fa fa-plus-circle" style="font-size : 7em;color:#94ca02;"></i>
         </center>
         <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>Ajouter</center></span>
@@ -36,7 +36,7 @@ foreach ($eqLogics as $eqLogic) {
 foreach ($eqLogics as $eqLogic) {
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo "<center>";
-	echo '<img src="plugins/weather/doc/images/ecowatt_icon.png" height="105" width="95" />';
+	echo '<img src="plugins/ecowatt/doc/images/ecowatt_icon.png" height="105" width="95" />';
 	echo "</center>";
 	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 	echo '</div>';
@@ -72,23 +72,23 @@ foreach (object::all() as $object) {
            <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
-           </div>
-       </div>
-       <div class="form-group">
-           <label class="col-sm-3 control-label">{{Type de source de données}}</label>
-           <div class="col-sm-3">
+             <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
+             <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
+         </div>
+     </div>
+     <div class="form-group">
+         <label class="col-sm-3 control-label">{{Type de source de données}}</label>
+         <div class="col-sm-3">
             <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="datasource">
                 <option value="ecowatt">{{EcoWatt}}</option>
-               <!-- <option value="eco2mix">{{Eco2Mix}}</option> -->
+                <!-- <option value="eco2mix">{{Eco2Mix}}</option> -->
                 <option value="ejp">{{EJP}}</option>
             </select>
         </div>
     </div>
     <div class="datasource ecowatt">
         <div class="form-group">
-        <label class="col-sm-3 control-label">{{Région}}</label>
+            <label class="col-sm-3 control-label">{{Région}}</label>
             <div class="col-sm-3">
                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ew">
                     <option value="bretagne">{{Bretagne}}</option>
@@ -99,13 +99,13 @@ foreach (object::all() as $object) {
     </div>
     <div class="datasource ejp">
         <div class="form-group">
-        <label class="col-sm-3 control-label">{{Région}}</label>
+            <label class="col-sm-3 control-label">{{Région}}</label>
             <div class="col-sm-3">
                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ejp">
-                    <option value="z-nord">{{Zone Nord}}</option>
-                    <option value="z-paca">{{Zone Provence, Alpes, Côtes d'Azur}}</option>
-                    <option value="z-ouest">{{Zone Ouest}}</option>
-                    <option value="z-sud">{{Zone Sud}}</option>
+                    <option value="EJP_NORD">{{Zone Nord}}</option>
+                    <option value="EJP_OUEST">{{Zone Ouest}}</option>
+                    <option value="EJP_PACA">{{Zone Provence, Alpes, Côtes d'Azur}}</option>
+                    <option value="EJP_SUD">{{Zone Sud}}</option>
                 </select>
             </div>
         </div>
