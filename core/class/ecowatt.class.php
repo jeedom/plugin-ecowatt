@@ -257,7 +257,7 @@ class ecowatt extends eqLogic {
 				}
 				$ejptotaldays['data'] = json_decode($ejptotaldays['data'], true);
 				$found_region = null;
-				print_r($ejptotaldays);
+
 				foreach ($ejptotaldays['data']['dtos'] as $region) {
 					if ($region['region'] == $this->getConfiguration('region-ejp')) {
 						$found_region = $region;
