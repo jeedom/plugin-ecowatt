@@ -60,7 +60,7 @@ class ecowatt extends eqLogic {
 				$remainingDays->remove();
 			}
 			$totalDays = $this->getCmd(null, 'totalDays');
-			if (is_object($today)) {
+			if (is_object($totalDays)) {
 				$totalDays->remove();
 			}
 
@@ -289,7 +289,45 @@ class ecowatt extends eqLogic {
 				break;
 		}
 	}
+	public function toHtml($_version = 'dashboard') {
+		if ($this->getIsEnable() != 1) {
+			return '';
+		}
+		if (!$this->hasRight('r')) {
+			return '';
+		}
 
+		$_version = jeedom::versionAlias($_version);
+		$replace = array(
+			'#name#' => $this->getName(),
+			'#id#' => $this->getId(),
+			'#eqLink#' => $this->getLinkToConfiguration(),
+		);
+		foreach ($this->getCmd('info') as $cmd) {
+			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd(null, 2);
+			$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+			if ($cmd->getIsHistorized() == 1) {
+				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+			}
+
+		}
+		$parameters = $this->getDisplay('parameters');
+		if (is_array($parameters)) {
+			foreach ($parameters as $key => $value) {
+				$replace['#' . $key . '#'] = $value;
+			}
+		}
+		if ($this->getConfiguration('datasource') == 'ecowatt') {
+			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ecowatt', 'ecowatt'));
+			return $html;
+		}
+		if ($this->getConfiguration('datasource') == 'ejp') {
+			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ejp', 'ecowatt'));
+			return $html;
+		}
+	}
 	/*
 	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
 	public function toHtml($_version = 'dashboard') {
