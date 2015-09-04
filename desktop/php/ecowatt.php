@@ -104,7 +104,7 @@ foreach (object::all() as $object) {
                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ejp">
                     <option value="EJP_NORD">{{Zone Nord}}</option>
                     <option value="EJP_OUEST">{{Zone Ouest}}</option>
-                    <option value="EJP_PACA">{{Zone Provence, Alpes, Côtes d'Azur}}</option>
+                    <option value="EJP_PACA">{{Zone Provence-Alpes-Côtes d'Azur}}</option>
                     <option value="EJP_SUD">{{Zone Sud}}</option>
                 </select>
             </div>

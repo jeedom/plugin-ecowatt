@@ -1,0 +1,39 @@
+<div class="eqLogic-widget eqLogic ecowatt" style="background-color:#bdc3c7; #style#" data-eqLogic_id="#id#" data-version="mobile" >
+	<i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 5px;" title="Rafraîchir"></i>
+	<center>#name#</center>
+
+	<span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
+
+
+	
+	<center>
+		<div class="clr-bg-grey today" style="width : 70%;border: 0px;text-shadow: none !important;border-radius: 4px;padding: .7em 1em">
+			Aujourd'hui<br/>
+			#today#
+		</div>
+	</center><br/>
+
+	<center>
+		<div class="clr-bg-grey tomorrow" style="width : 70%;border: 0px;text-shadow: none !important;border-radius: 4px;padding: .7em 1em">
+			Demain<br/>
+			#tomorrow#
+		</div>
+	</center>
+
+	<script>
+		if('#today#' == 'Verte'){
+			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-light-green');
+		}else if('#today#' == 'Orange'){
+			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-orange');
+		}else if('#today#' == 'Rouge'){
+			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-red');
+		}
+		if('#tomorrow#' == 'Verte'){
+			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-light-green');
+		}else if('#tomorrow#' == 'Orange'){
+			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-orange');
+		}else if('#tomorrow#' == 'Rouge'){
+			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-red');
+		}
+	</script>
+</div>
