@@ -82,11 +82,11 @@ _Pour ces deux commandes les valeurs peuvent être :_
 
 === Widget
 
-Le widget desktop ressemble à cela : (ici pour un équipement EJP)
+Les widgets desktop ressemblent à cela :
 
 image::../images/ecowatt5.PNG[]
 
-Le widget mobile ressemble à cela : (ici pour un équipement EJP)
+Les widgets mobile ressemblent à cela :
 
 image::../images/ecowatt6.PNG[]
 

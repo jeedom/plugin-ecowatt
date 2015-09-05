@@ -53,6 +53,10 @@ class ecowatt extends eqLogic {
 
 	/*     * *********************Méthodes d'instance************************* */
 
+	public function preSave(){
+		$this->setCategory('energy', 1);
+	}
+
 	public function postSave() {
 		if ($this->getConfiguration('datasource') == 'ecowatt') {
 			$remainingDays = $this->getCmd(null, 'remainingDays');
