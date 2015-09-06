@@ -83,6 +83,7 @@ foreach (object::all() as $object) {
                 <option value="ecowatt">{{EcoWatt}}</option>
                 <!-- <option value="eco2mix">{{Eco2Mix}}</option> -->
                 <option value="ejp">{{EJP}}</option>
+                <option value="tempo">{{Tempo (EDF)}}</option>
             </select>
         </div>
     </div>

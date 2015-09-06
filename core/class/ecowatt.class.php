@@ -53,125 +53,120 @@ class ecowatt extends eqLogic {
 
 	/*     * *********************Méthodes d'instance************************* */
 
-	public function preSave(){
+	public function preSave() {
 		$this->setCategory('energy', 1);
 	}
 
 	public function postSave() {
+		$cmd_list = array();
 		if ($this->getConfiguration('datasource') == 'ecowatt') {
-			$remainingDays = $this->getCmd(null, 'remainingDays');
-			if (is_object($remainingDays)) {
-				$remainingDays->remove();
-			}
-			$totalDays = $this->getCmd(null, 'totalDays');
-			if (is_object($totalDays)) {
-				$totalDays->remove();
-			}
-
-			$today = $this->getCmd(null, 'today');
-			if (!is_object($today)) {
-				$today = new ecowattCmd();
-				$today->setLogicalId('today');
-				$today->setIsVisible(1);
-				$today->setName(__('Aujourd\'hui', __FILE__));
-				$today->setOrder(1);
-			}
-			$today->setType('info');
-			$today->setSubType('string');
-			$today->setEqLogic_id($this->getId());
-			$today->setEventOnly(1);
-			$today->save();
-
-			$tomorrow = $this->getCmd(null, 'tomorrow');
-			if (!is_object($tomorrow)) {
-				$tomorrow = new ecowattCmd();
-				$tomorrow->setLogicalId('tomorrow');
-				$tomorrow->setIsVisible(1);
-				$tomorrow->setName(__('Demain', __FILE__));
-				$tomorrow->setOrder(2);
-			}
-			$tomorrow->setType('info');
-			$tomorrow->setSubType('string');
-			$tomorrow->setEqLogic_id($this->getId());
-			$tomorrow->setEventOnly(1);
-			$tomorrow->save();
+			$cmd_list = array(
+				'today' => array(
+					'name' => __('Aujourd\'hui', __FILE__),
+					'subtype' => 'string',
+					'order' => 1,
+				),
+				'tomorrow' => array(
+					'name' => __('Demain', __FILE__),
+					'subtype' => 'string',
+					'order' => 2,
+				),
+			);
 		}
 		if ($this->getConfiguration('datasource') == 'ejp') {
-			$today = $this->getCmd(null, 'today');
-			if (!is_object($today)) {
-				$today = new ecowattCmd();
-				$today->setLogicalId('today');
-				$today->setIsVisible(1);
-				$today->setName(__('Aujourd\'hui', __FILE__));
-				$today->setOrder(1);
-			}
-			$today->setType('info');
-			$today->setSubType('string');
-			$today->setEqLogic_id($this->getId());
-			$today->setEventOnly(1);
-			$today->save();
-
-			$tomorrow = $this->getCmd(null, 'tomorrow');
-			if (!is_object($tomorrow)) {
-				$tomorrow = new ecowattCmd();
-				$tomorrow->setLogicalId('tomorrow');
-				$tomorrow->setIsVisible(1);
-				$tomorrow->setName(__('Demain', __FILE__));
-				$tomorrow->setOrder(2);
-			}
-			$tomorrow->setType('info');
-			$tomorrow->setSubType('string');
-			$tomorrow->setEqLogic_id($this->getId());
-			$tomorrow->setEventOnly(1);
-			$tomorrow->save();
-
-			$remainingDays = $this->getCmd(null, 'remainingDays');
-			if (!is_object($remainingDays)) {
-				$remainingDays = new ecowattCmd();
-				$remainingDays->setLogicalId('remainingDays');
-				$remainingDays->setIsVisible(1);
-				$remainingDays->setName(__('Jours EJP restants', __FILE__));
-				$remainingDays->setOrder(3);
-			}
-			$remainingDays->setType('info');
-			$remainingDays->setSubType('numeric');
-			$remainingDays->setEqLogic_id($this->getId());
-			$remainingDays->setEventOnly(1);
-			$remainingDays->save();
-
-			$totalDays = $this->getCmd(null, 'totalDays');
-			if (!is_object($totalDays)) {
-				$totalDays = new ecowattCmd();
-				$totalDays->setLogicalId('totalDays');
-				$totalDays->setIsVisible(1);
-				$totalDays->setName(__('Total de jours EJP', __FILE__));
-				$totalDays->setOrder(4);
-			}
-			$totalDays->setType('info');
-			$totalDays->setSubType('numeric');
-			$totalDays->setEqLogic_id($this->getId());
-			$totalDays->setEventOnly(1);
-			$totalDays->save();
+			$cmd_list = array(
+				'today' => array(
+					'name' => __('Aujourd\'hui', __FILE__),
+					'subtype' => 'string',
+					'order' => 1,
+				),
+				'tomorrow' => array(
+					'name' => __('Demain', __FILE__),
+					'subtype' => 'string',
+					'order' => 2,
+				),
+				'remainingDays' => array(
+					'name' => __('Jours restants', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 3,
+				),
+				'totalDays' => array(
+					'name' => __('Total EJP', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 4,
+				),
+			);
+		}
+		if ($this->getConfiguration('datasource') == 'tempo') {
+			$cmd_list = array(
+				'today' => array(
+					'name' => __('Aujourd\'hui', __FILE__),
+					'subtype' => 'string',
+					'order' => 1,
+				),
+				'tomorrow' => array(
+					'name' => __('Demain', __FILE__),
+					'subtype' => 'string',
+					'order' => 2,
+				),
+				'blue-remainingDays' => array(
+					'name' => __('Jours Bleus restants', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 3,
+				),
+				'blue-totalDays' => array(
+					'name' => __('Total jours Bleus', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 4,
+				),
+				'white-remainingDays' => array(
+					'name' => __('Jours Blancs restants', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 5,
+				),
+				'white-totalDays' => array(
+					'name' => __('Total jours Blancs', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 6,
+				),
+				'red-remainingDays' => array(
+					'name' => __('Jours Rouges restants', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 7,
+				),
+				'red-totalDays' => array(
+					'name' => __('Total jours Rouges', __FILE__),
+					'subtype' => 'numeric',
+					'order' => 8,
+				),
+			);
 		}
 
 		if ($this->getConfiguration('datasource') == 'eco2mix') {
-			$today = $this->getCmd(null, 'today');
-			if (is_object($today)) {
-				$today->remove();
-			}
-			$tomorrow = $this->getCmd(null, 'tomorrow');
-			if (is_object($tomorrow)) {
-				$tomorrow->remove();
-			}
-			$remainingDays = $this->getCmd(null, 'remainingDays');
-			if (is_object($remainingDays)) {
-				$remainingDays->remove();
-			}
-			$totalDays = $this->getCmd(null, 'totalDays');
-			if (is_object($today)) {
-				$totalDays->remove();
+
+		}
+
+		foreach ($this->getCmd() as $cmd) {
+			if (!isset($cmd_list[$cmd->getLogicalId()])) {
+				$cmd->remove();
 			}
 		}
+		foreach ($cmd_list as $key => $cmd_info) {
+			$cmd = $this->getCmd(null, $key);
+			if (!is_object($cmd)) {
+				$cmd = new ecowattCmd();
+				$cmd->setLogicalId($key);
+				$cmd->setIsVisible(1);
+				$cmd->setName($cmd_info['name']);
+				$cmd->setOrder($cmd_info['order']);
+			}
+			$cmd->setType('info');
+			$cmd->setSubType($cmd_info['subtype']);
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setEventOnly(1);
+			$cmd->save();
+		}
+
 		$this->updateInfo();
 	}
 
@@ -287,7 +282,38 @@ class ecowatt extends eqLogic {
 				if (is_object($totalDays) && $totalDays->execCmd(null, 2) !== $totalDays->formatValue($value)) {
 					$totalDays->event($value);
 				}
+			case 'tempo':
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempo?searchType=tempo');
+				$tempodays = $request_http->exec();
+				if (!is_json($tempodays)) {
+					return;
+				}
+				$tempodays = json_decode($tempodays, true);
+				if (!isset($tempodays['success']) || $tempodays['success'] != 1) {
+					return;
+				}
+				$tempodays['data'] = json_decode($tempodays['data'], true);
 
+				print_r($tempodays['data']['dtos'][0]['value']);
+
+				$value = 'Non déterminé';
+				if (isset($tempodays['data']['dtos'][0]['value'])) {
+					$value = $tempodays['data']['dtos'][0]['value'];
+				}
+				$today = $this->getCmd(null, 'today');
+				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($value)) {
+					$today->event($value);
+				}
+				$value = 'Non déterminé';
+				if (isset($tempodays['data']['dtos'][1]['value'])) {
+					$value = $tempodays['data']['dtos'][1]['value'];
+				}
+				$tomorrow = $this->getCmd(null, 'tomorrow');
+				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($value)) {
+					$tomorrow->event($value);
+				}
+
+				break;
 			case 'eco2mix':
 				# code...
 				break;

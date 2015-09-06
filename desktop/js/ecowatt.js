@@ -35,7 +35,7 @@
     var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
     tr += '<td>';
     tr += '<span class="cmdAttr" data-l1key="id" style="display:none"></span>';
-    tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" style="width : 140px;" placeholder="{{Nom}}"></td>';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" style="width : 170px;" placeholder="{{Nom}}"></td>';
     tr += '<td>';
     tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="info" disabled style="margin-bottom : 5px; display:none" />';
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style="display:none"></span>';
