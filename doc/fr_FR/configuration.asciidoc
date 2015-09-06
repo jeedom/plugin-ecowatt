@@ -10,7 +10,7 @@ La configuration des équipements Eco 2 Watt est accessible à partir du menu Pl
 
 image::../images/ecowatt2.PNG[]
 
-Voilà à quoi ressemble la page du plugin Eco 2 Watt (ici avec déjà 1 équipement) : 
+Voilà à quoi ressemble la page du plugin Eco 2 Watt (ici avec déjà des équipements) : 
 
 image::../images/ecowatt3.PNG[]
 
@@ -49,24 +49,6 @@ En-dessous vous retrouvez la liste des commandes :
 
 Les boutons "Afficher" et "Historiser" sont les boutons habituels d'affichage (ou non) de la commande sur le widget et de son historisation (ou non).
 
-=== Commandes EJP
-
-Pour EJP, 4 commandes existent :
-
-* Aujourd'hui : permet de savoir si la date du jour est en EJP ou pas,
-* Demain : permet de savoir si le lendemain est en EJP ou pas.
-+
-_Pour ces deux commandes les valeurs peuvent être :_
-
-** Pas d'EJP : la date du jour n'est pas en EJP
-** EJP : la date du jour est en EJP
-** Non déterminé : le site n'a pas communiqué l'information
-
-* Jours EJP restants : indique le nombre de jours EJP qu'il reste pour l'année en cours,
-* Total de jours EJP : indique le nombre total de jours EJP prévus pour l'année en cours.
-+
-_Pour ces deux commandes les valeurs sont des nombres._
-
 === Commandes EcoWatt
 
 Pour EcoWatt, 2 commandes existent :
@@ -80,7 +62,45 @@ _Pour ces deux commandes les valeurs peuvent être :_
 ** Orange : la tendance est orange (il faut faire attention à ses consommations),
 ** Rouge : la tendance est rouge (il faut réduire ses consommations afin d'éviter une coupure généralisée).
 
-=== Widget
+=== Commandes EJP
+
+Pour EJP, 4 commandes existent :
+
+* Aujourd'hui : permet de savoir si la date du jour est en EJP ou pas,
+* Demain : permet de savoir si le lendemain est en EJP ou pas.
++
+_Pour ces deux commandes les valeurs peuvent être :_
+
+** Pas d'EJP : la date du jour n'est pas en EJP
+** EJP : la date du jour est en EJP
+** Non déterminé : le site n'a pas communiqué l'information
+
+* Jours EJP restants : indique le nombre de jours EJP qu'il reste pour la période EJP (1er novembre - 31 mars) en cours,
+* Total de jours EJP : indique le nombre total de jours EJP prévus pour la période EJP (1er novembre - 31 mars) en cours.
++
+_Pour ces deux commandes les valeurs sont des nombres._
+
+=== Commandes Tempo
+
+Pour Tempo, 8 commandes existent :
+
+* Aujourd'hui : permet de connaître la couleur du jour,
+* Demain : permet de connaître la couleur du lendemain.
++
+_Pour ces deux commandes les valeurs peuvent être :_
+
+** Bleu : le jour est "bleu",
+** Blanc : le jour est "blanc",
+** Rouge : le jour est "rouge".
+
+Pour chaque couleur de jour (Bleu - Blanc - Rouge) :
+
+* Jours restants : indique le nombre de jours de cette couleur qu'il reste pour la période Tempo en cours,
+* Total de jours EJP : indique le nombre total de jours de cette couleur prévus pour la période Tempo en cours.
++
+_Pour ces commandes les valeurs sont des nombres._
+
+=== Widgets
 
 Les widgets desktop ressemblent à cela :
 

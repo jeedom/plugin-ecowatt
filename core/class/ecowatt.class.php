@@ -35,7 +35,7 @@ class ecowatt extends eqLogic {
 	 * Fonction exécutée automatiquement toutes les heures par Jeedom	 */
 	public static function cronHourly() {
 		foreach (self::byType('ecowatt') as $ecowatt) {
-			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp') {
+			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp' || $ecowatt->getConfiguration('datasource') == 'tempo') {
 				if (date('H') != 1 && date('H') != 18 && date('H') != 23) {
 					continue;
 				}
@@ -214,6 +214,7 @@ class ecowatt extends eqLogic {
 				}
 				$ejpdays['data'] = json_decode($ejpdays['data'], true);
 				$found_region = null;
+
 				foreach ($ejpdays['data']['dtos'] as $region) {
 					if ($region['region'] == $this->getConfiguration('region-ejp')) {
 						$found_region = $region;
@@ -282,6 +283,8 @@ class ecowatt extends eqLogic {
 				if (is_object($totalDays) && $totalDays->execCmd(null, 2) !== $totalDays->formatValue($value)) {
 					$totalDays->event($value);
 				}
+				break;
+
 			case 'tempo':
 				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempo?searchType=tempo');
 				$tempodays = $request_http->exec();
@@ -294,24 +297,26 @@ class ecowatt extends eqLogic {
 				}
 				$tempodays['data'] = json_decode($tempodays['data'], true);
 
-				print_r($tempodays['data']['dtos'][0]['value']);
+				$this->fillValue('today', 'data::dtos::0::value', $tempodays);
+				$this->fillValue('tomorrow', 'data::dtos::1::value', $tempodays);
 
-				$value = 'Non déterminé';
-				if (isset($tempodays['data']['dtos'][0]['value'])) {
-					$value = $tempodays['data']['dtos'][0]['value'];
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodays?searchType=tempo');
+				$tempodays = $request_http->exec();
+				if (!is_json($tempodays)) {
+					return;
 				}
-				$today = $this->getCmd(null, 'today');
-				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($value)) {
-					$today->event($value);
+				$tempodays = json_decode($tempodays, true);
+				if (!isset($tempodays['success']) || $tempodays['success'] != 1) {
+					return;
 				}
-				$value = 'Non déterminé';
-				if (isset($tempodays['data']['dtos'][1]['value'])) {
-					$value = $tempodays['data']['dtos'][1]['value'];
-				}
-				$tomorrow = $this->getCmd(null, 'tomorrow');
-				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($value)) {
-					$tomorrow->event($value);
-				}
+				$tempodays['data'] = json_decode($tempodays['data'], true);
+
+				$this->fillValue('white-remainingDays', 'data::dtos::0::remainingDays', $tempodays);
+				$this->fillValue('white-totalDays', 'data::dtos::0::totalDays', $tempodays);
+				$this->fillValue('blue-remainingDays', 'data::dtos::1::remainingDays', $tempodays);
+				$this->fillValue('blue-totalDays', 'data::dtos::1::totalDays', $tempodays);
+				$this->fillValue('red-remainingDays', 'data::dtos::2::remainingDays', $tempodays);
+				$this->fillValue('red-totalDays', 'data::dtos::2::totalDays', $tempodays);
 
 				break;
 			case 'eco2mix':
@@ -319,6 +324,28 @@ class ecowatt extends eqLogic {
 				break;
 		}
 	}
+
+	public function fillValue($_logicalId, $_value, $_data) {
+		$result = 'Non déterminé';
+		foreach (explode('::', $_value) as $key) {
+			if (isset($_data[$key])) {
+				$_data = $_data[$key];
+			} else {
+				$_data = null;
+				break;
+			}
+		}
+
+		if (!is_array($_data) && $_data !== null) {
+			$result = $_data;
+		}
+
+		$cmd = $this->getCmd(null, $_logicalId);
+		if (is_object($cmd) && $cmd->execCmd(null, 2) !== $cmd->formatValue($result)) {
+			$cmd->event($result);
+		}
+	}
+
 	public function toHtml($_version = 'dashboard') {
 		if ($this->getIsEnable() != 1) {
 			return '';
@@ -328,6 +355,9 @@ class ecowatt extends eqLogic {
 		}
 
 		$_version = jeedom::versionAlias($_version);
+		if ($this->getDisplay('hideOn' . $_version) == 1) {
+			return '';
+		}
 		$replace = array(
 			'#name#' => $this->getName(),
 			'#id#' => $this->getId(),
@@ -355,6 +385,10 @@ class ecowatt extends eqLogic {
 		}
 		if ($this->getConfiguration('datasource') == 'ejp') {
 			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ejp', 'ecowatt'));
+			return $html;
+		}
+		if ($this->getConfiguration('datasource') == 'tempo') {
+			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_tempo', 'ecowatt'));
 			return $html;
 		}
 	}
