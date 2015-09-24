@@ -203,27 +203,16 @@ class ecowatt extends eqLogic {
 				break;
 
 			case 'ejp':
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempo?searchType=ejp');
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=EJP');
 				$ejpdays = $request_http->exec();
 				if (!is_json($ejpdays)) {
 					return;
 				}
 				$ejpdays = json_decode($ejpdays, true);
-				if (!isset($ejpdays['success']) || $ejpdays['success'] != 1) {
-					return;
-				}
-				$ejpdays['data'] = json_decode($ejpdays['data'], true);
-				$found_region = null;
-
-				foreach ($ejpdays['data']['dtos'] as $region) {
-					if ($region['region'] == $this->getConfiguration('region-ejp')) {
-						$found_region = $region;
-						break;
-					}
-				}
+				$region = 'Ejp' . ucfirst(strtolower(str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'))));
 				$value = 'Non déterminé';
-				if (isset($found_region['values'][0])) {
-					if (($found_region['values'][0]) == 'NON') {
+				if (isset($ejpdays['JourJ'][$region])) {
+					if ($ejpdays['JourJ'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
 					} else {
 						$value = 'EJP';
@@ -234,8 +223,8 @@ class ecowatt extends eqLogic {
 					$today->event($value);
 				}
 				$value = 'Non déterminé';
-				if (isset($found_region['values'][1])) {
-					if (($found_region['values'][1]) == 'NON') {
+				if (isset($ejpdays['JourJ1'][$region])) {
+					if ($ejpdays['JourJ1'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
 					} else {
 						$value = 'EJP';
