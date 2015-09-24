@@ -275,19 +275,14 @@ class ecowatt extends eqLogic {
 				break;
 
 			case 'tempo':
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempo?searchType=tempo');
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=TEMPO');
 				$tempodays = $request_http->exec();
 				if (!is_json($tempodays)) {
 					return;
 				}
 				$tempodays = json_decode($tempodays, true);
-				if (!isset($tempodays['success']) || $tempodays['success'] != 1) {
-					return;
-				}
-				$tempodays['data'] = json_decode($tempodays['data'], true);
-
-				$this->fillValue('today', 'data::dtos::0::value', $tempodays);
-				$this->fillValue('tomorrow', 'data::dtos::1::value', $tempodays);
+				$this->fillValue('today', 'JourJ::Tempo', $tempodays);
+				$this->fillValue('tomorrow', 'JourJ1::Tempo', $tempodays);
 
 				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodays?searchType=tempo');
 				$tempodays = $request_http->exec();
@@ -328,7 +323,6 @@ class ecowatt extends eqLogic {
 		if (!is_array($_data) && $_data !== null) {
 			$result = $_data;
 		}
-
 		$cmd = $this->getCmd(null, $_logicalId);
 		if (is_object($cmd) && $cmd->execCmd(null, 2) !== $cmd->formatValue($result)) {
 			$cmd->event($result);
