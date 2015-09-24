@@ -210,6 +210,7 @@ class ecowatt extends eqLogic {
 				}
 				$ejpdays = json_decode($ejpdays, true);
 				$region = 'Ejp' . ucfirst(strtolower(str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'))));
+
 				$value = 'Non déterminé';
 				if (isset($ejpdays['JourJ'][$region])) {
 					if ($ejpdays['JourJ'][$region] == 'NON_EJP') {
