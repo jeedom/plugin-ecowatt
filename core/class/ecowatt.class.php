@@ -44,6 +44,15 @@ class ecowatt extends eqLogic {
 		}
 	}
 
+	public static function valueFromURL($_url) {
+		$request_http = new com_http($_url);
+			$tempodays = $request_http->exec();
+			if (!is_json($tempodays)) {
+				return;
+		}
+		return json_decode($tempodays, true);
+	}
+
 	/*
 	 * Fonction exécutée automatiquement tous les jours par Jeedom
 	public static function cronDayly() {
@@ -285,25 +294,28 @@ class ecowatt extends eqLogic {
 				$this->fillValue('today', 'JourJ::Tempo', $tempodays);
 				$this->fillValue('tomorrow', 'JourJ1::Tempo', $tempodays);
 
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodays?searchType=tempo');
+				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodaysnew?TypeAlerte=TEMPO');
 				$tempodays = $request_http->exec();
 				if (!is_json($tempodays)) {
 					return;
 				}
 				$tempodays = json_decode($tempodays, true);
-				if (!isset($tempodays['success']) || $tempodays['success'] != 1) {
-					return;
-				}
-				$tempodays['data'] = json_decode($tempodays['data'], true);
 
-				$this->fillValue('white-remainingDays', 'data::dtos::0::remainingDays', $tempodays);
-				$this->fillValue('white-totalDays', 'data::dtos::0::totalDays', $tempodays);
-				$this->fillValue('blue-remainingDays', 'data::dtos::1::remainingDays', $tempodays);
-				$this->fillValue('blue-totalDays', 'data::dtos::1::totalDays', $tempodays);
-				$this->fillValue('red-remainingDays', 'data::dtos::2::remainingDays', $tempodays);
-				$this->fillValue('red-totalDays', 'data::dtos::2::totalDays', $tempodays);
+				$this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
+		//		$this->fillValue('white-totalDays', 'data::dtos::0::totalDays', $tempodays);
+				$this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
+		//		$this->fillValue('blue-totalDays', 'data::dtos::1::totalDays', $tempodays);
+				$this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
+		//		$this->fillValue('red-totalDays', 'data::dtos::2::totalDays', $tempodays);
+				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.bleu.periode');
+				$this->fillValue('blue-totalDays', 'param.nb.bleu.periode', $tempodays);
+				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.blanc.periode');
+				$this->fillValue('white-totalDays', 'param.nb.blanc.periode', $tempodays);
+				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.rouge.periode');
+				$this->fillValue('red-totalDays', 'param.nb.rouge.periode', $tempodays);
 
 				break;
+				
 			case 'eco2mix':
 				# code...
 				break;
@@ -320,7 +332,6 @@ class ecowatt extends eqLogic {
 				break;
 			}
 		}
-
 		if (!is_array($_data) && $_data !== null) {
 			$result = $_data;
 		}
