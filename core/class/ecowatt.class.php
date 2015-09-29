@@ -44,13 +44,13 @@ class ecowatt extends eqLogic {
 		}
 	}
 
-	public static function valueFromURL($_url) {
+	public static function valueFromUrl($_url) {
 		$request_http = new com_http($_url);
-			$tempodays = $request_http->exec();
-			if (!is_json($tempodays)) {
+			$dataUrl = $request_http->exec();
+			if (!is_json($dataUrl)) {
 				return;
 		}
-		return json_decode($tempodays, true);
+		return json_decode($dataUrl, true);
 	}
 
 	/*
@@ -95,12 +95,12 @@ class ecowatt extends eqLogic {
 					'order' => 2,
 				),
 				'remainingDays' => array(
-					'name' => __('Jours restants', __FILE__),
+					'name' => __('EJP restants', __FILE__),
 					'subtype' => 'numeric',
 					'order' => 3,
 				),
 				'totalDays' => array(
-					'name' => __('Total EJP', __FILE__),
+					'name' => __('EJP écoulés', __FILE__),
 					'subtype' => 'numeric',
 					'order' => 4,
 				),
@@ -212,12 +212,7 @@ class ecowatt extends eqLogic {
 				break;
 
 			case 'ejp':
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=EJP');
-				$ejpdays = $request_http->exec();
-				if (!is_json($ejpdays)) {
-					return;
-				}
-				$ejpdays = json_decode($ejpdays, true);
+				$ejpdays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=EJP');
 				$region = 'Ejp' . ucfirst(strtolower(str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'))));
 
 				$value = 'Non déterminé';
@@ -245,85 +240,42 @@ class ecowatt extends eqLogic {
 					$tomorrow->event($value);
 				}
 
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodays?searchType=ejp');
-				$ejptotaldays = $request_http->exec();
-				if (!is_json($ejptotaldays)) {
-					return;
-				}
-				$ejptotaldays = json_decode($ejptotaldays, true);
-				if (!isset($ejptotaldays['success']) || $ejptotaldays['success'] != 1) {
-					return;
-				}
-				$ejptotaldays['data'] = json_decode($ejptotaldays['data'], true);
-				$found_region = null;
+				$ejptotaldays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/historicEJPStore?searchType=ejp');
+				$region = str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'));
+				$this->fillValue('totalDays', $region.'::Total', $ejptotaldays,-1);
+				$totalDays = $this->getCmd(null,'totalDays');
+				$remainingDays = $this->getCmd(null,'remainingDays');
+				$remainingDays->event(22 - $totalDays->execCmd(null,2));
 
-				foreach ($ejptotaldays['data']['dtos'] as $region) {
-					if ($region['region'] == $this->getConfiguration('region-ejp')) {
-						$found_region = $region;
-						break;
-					}
-				}
-				if (isset($found_region['remainingDays'])) {
-					$value = $found_region['remainingDays'];
-				} else {
-					$value = 'error::N/A';
-				}
-				$remainingDays = $this->getCmd(null, 'remainingDays');
-				if (is_object($remainingDays) && $remainingDays->execCmd(null, 2) !== $remainingDays->formatValue($value)) {
-					$remainingDays->event($value);
-				}
-				if (isset($found_region['totalDays'])) {
-					$value = $found_region['totalDays'];
-				} else {
-					$value = 'error::N/A';
-				}
-
-				$totalDays = $this->getCmd(null, 'totalDays');
-				if (is_object($totalDays) && $totalDays->execCmd(null, 2) !== $totalDays->formatValue($value)) {
-					$totalDays->event($value);
-				}
 				break;
 
 			case 'tempo':
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=TEMPO');
-				$tempodays = $request_http->exec();
-				if (!is_json($tempodays)) {
-					return;
-				}
-				$tempodays = json_decode($tempodays, true);
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=TEMPO');
 				$this->fillValue('today', 'JourJ::Tempo', $tempodays);
 				$this->fillValue('tomorrow', 'JourJ1::Tempo', $tempodays);
 
-				$request_http = new com_http('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodaysnew?TypeAlerte=TEMPO');
-				$tempodays = $request_http->exec();
-				if (!is_json($tempodays)) {
-					return;
-				}
-				$tempodays = json_decode($tempodays, true);
-
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodaysnew?TypeAlerte=TEMPO');
 				$this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
-		//		$this->fillValue('white-totalDays', 'data::dtos::0::totalDays', $tempodays);
 				$this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
-		//		$this->fillValue('blue-totalDays', 'data::dtos::1::totalDays', $tempodays);
 				$this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
-		//		$this->fillValue('red-totalDays', 'data::dtos::2::totalDays', $tempodays);
-				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.bleu.periode');
+
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.bleu.periode');
 				$this->fillValue('blue-totalDays', 'param.nb.bleu.periode', $tempodays);
-				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.blanc.periode');
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.blanc.periode');
 				$this->fillValue('white-totalDays', 'param.nb.blanc.periode', $tempodays);
-				$tempodays = self::valueFromURL('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.rouge.periode');
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.rouge.periode');
 				$this->fillValue('red-totalDays', 'param.nb.rouge.periode', $tempodays);
 
 				break;
-				
+
 			case 'eco2mix':
 				# code...
 				break;
 		}
 	}
 
-	public function fillValue($_logicalId, $_value, $_data) {
-		$result = 'Non déterminé';
+	public function fillValue($_logicalId, $_value, $_data, $_default = 'N/A') {
+		$result = $_default;
 		foreach (explode('::', $_value) as $key) {
 			if (isset($_data[$key])) {
 				$_data = $_data[$key];

@@ -8,24 +8,26 @@
 	<div class="row" style="margin : 4px">
 
 		<center>
-			<span style="font-weight : bold; Cursor:default">Aujourd'hui</span><br/>
-			<span class="badge today" style="background-color : #95a5a6; Cursor:default">#today#</span><br/>
-			<span style="font-weight : bold; Cursor:default">Demain</span><br/>
-			<span class="badge tomorrow" style="background-color : #95a5a6; Cursor:default">#tomorrow#</span><br/>
-			<span style="font-weight : bold; Cursor:default">Jours restants</span>	<br/>
-			<span class="badge remainingDays" style="background-color : #8e44ad; Cursor:default">#remainingDays# / #totalDays#</span>
+			<p><span style="font-weight : bold; Cursor:default">Aujourd'hui</span>
+			<i class="fa fa-circle fa-lg today" style="color : #95a5a6; Cursor:default"></i><br/></p>
+			
+			<p><span style="font-weight : bold; Cursor:default">Demain</span>
+			<i class="fa fa-circle fa-lg tomorrow" style="color : #95a5a6; Cursor:default"></i><br/></p>
+		    
+			<span style="font-weight : bold; Cursor:default">Jours restants :</span><br/>
+			<span style="Cursor:default">#remainingDays# / 22</span>
 		</center>
 	</div>
 	<script>
 		if("#today#" == "Pas d'EJP"){
-			$('.eqLogic[data-eqLogic_id=#id#] .today').css('background-color','#2ecc71');
+			$('.eqLogic[data-eqLogic_id=#id#] .today').css('color','#2ecc71');
 		}else if("#today#" == "EJP"){
-			$('.eqLogic[data-eqLogic_id=#id#] .today').css('background-color','#e74c3c');
+			$('.eqLogic[data-eqLogic_id=#id#] .today').css('color','#e74c3c');
 		}
 		if("#tomorrow#" == "Pas d'EJP"){
-			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('background-color','#2ecc71');
+			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('color','#2ecc71');
 		}else if("#tomorrow#" == "EJP"){
-			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('background-color','#e74c3c');
+			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('color','#e74c3c');
 		}
 	</script>
 </div>
