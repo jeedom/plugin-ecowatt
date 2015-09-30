@@ -46,9 +46,9 @@ class ecowatt extends eqLogic {
 
 	public static function valueFromUrl($_url) {
 		$request_http = new com_http($_url);
-			$dataUrl = $request_http->exec();
-			if (!is_json($dataUrl)) {
-				return;
+		$dataUrl = $request_http->exec();
+		if (!is_json($dataUrl)) {
+			return;
 		}
 		return json_decode($dataUrl, true);
 	}
@@ -219,10 +219,11 @@ class ecowatt extends eqLogic {
 				if (isset($ejpdays['JourJ'][$region])) {
 					if ($ejpdays['JourJ'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
-					} else {
+					} elseif ($ejpdays['JourJ'][$region] == 'EJP') {
 						$value = 'EJP';
 					}
 				}
+
 				$today = $this->getCmd(null, 'today');
 				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($value)) {
 					$today->event($value);
@@ -231,7 +232,7 @@ class ecowatt extends eqLogic {
 				if (isset($ejpdays['JourJ1'][$region])) {
 					if ($ejpdays['JourJ1'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
-					} else {
+					} elseif ($ejpdays['JourJ1'][$region] == 'EJP') {
 						$value = 'EJP';
 					}
 				}
@@ -242,10 +243,10 @@ class ecowatt extends eqLogic {
 
 				$ejptotaldays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/historicEJPStore?searchType=ejp');
 				$region = str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'));
-				$this->fillValue('totalDays', $region.'::Total', $ejptotaldays,-1);
-				$totalDays = $this->getCmd(null,'totalDays');
-				$remainingDays = $this->getCmd(null,'remainingDays');
-				$remainingDays->event(22 - $totalDays->execCmd(null,2));
+				$this->fillValue('totalDays', $region . '::Total', $ejptotaldays, -1);
+				$totalDays = $this->getCmd(null, 'totalDays');
+				$remainingDays = $this->getCmd(null, 'remainingDays');
+				$remainingDays->event(22 - $totalDays->execCmd(null, 2));
 
 				break;
 
