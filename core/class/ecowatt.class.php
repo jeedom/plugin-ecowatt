@@ -219,7 +219,7 @@ class ecowatt extends eqLogic {
 				if (isset($ejpdays['JourJ'][$region])) {
 					if ($ejpdays['JourJ'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
-					} elseif ($ejpdays['JourJ'][$region] == 'EJP') {
+					} elseif ($ejpdays['JourJ'][$region] == 'EST_EJP') {
 						$value = 'EJP';
 					}
 				}
@@ -232,7 +232,7 @@ class ecowatt extends eqLogic {
 				if (isset($ejpdays['JourJ1'][$region])) {
 					if ($ejpdays['JourJ1'][$region] == 'NON_EJP') {
 						$value = 'Pas d\'EJP';
-					} elseif ($ejpdays['JourJ1'][$region] == 'EJP') {
+					} elseif ($ejpdays['JourJ1'][$region] == 'EST_EJP') {
 						$value = 'EJP';
 					}
 				}
