@@ -198,7 +198,7 @@ class ecowatt extends eqLogic {
 				$html = $request_http->exec();
 				phpQuery::newDocumentHTML($html);
 				$result = pq('div.alertes.small')->html();
-				$result = substr($result, strpos($result, 'alt="Alerte ') + 12);
+				$result = substr($result, strpos($result, 'alt="Message ') + 13);
 				$result = substr($result, 0, strpos($result, '"'));
 				$result = explode(' ', $result);
 				$today = $this->getCmd(null, 'today');
