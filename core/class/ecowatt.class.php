@@ -36,7 +36,7 @@ class ecowatt extends eqLogic {
 	public static function cronHourly() {
 		foreach (self::byType('ecowatt') as $ecowatt) {
 			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp' || $ecowatt->getConfiguration('datasource') == 'tempo') {
-				if (date('H') != 1 && date('H') != 16 && date('H') != 18 && date('H') != 23) {
+				if (date('H') != 1 && date('H') != 7 && date('H') != 10 && date('H') != 16 && date('H') != 18 && date('H') != 23) {
 					continue;
 				}
 			}
@@ -198,9 +198,11 @@ class ecowatt extends eqLogic {
 				$html = $request_http->exec();
 				phpQuery::newDocumentHTML($html);
 				$result = pq('div.alertes.small')->html();
-				$result = substr($result, strpos($result, 'alt="Message ') + 13);
+				$result = substr($result, strpos($result, 'alt='));
+				$result = substr($result, strpos($result, ' '), + 15);
 				$result = substr($result, 0, strpos($result, '"'));
-				$result = explode(' ', $result);
+				$result = strtolower($result);
+				$result = explode(' ', trim($result));
 				$today = $this->getCmd(null, 'today');
 				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($result[0])) {
 					$today->event($result[0]);

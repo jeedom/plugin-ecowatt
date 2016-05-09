@@ -17,14 +17,14 @@
 	</center>
 
 	<script>
-		if('#today#' == 'vert'){
+		if('#today#' == 'vert' || '#today#' == 'verte'){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-light-green');
 		}else if('#today#' == 'orange'){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-orange');
 		}else if('#today#' == 'rouge'){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-red');
 		}
-		if('#tomorrow#' == 'vert'){
+		if('#tomorrow#' == 'vert' || '#today#' == 'verte'){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-light-green');
 		}else if('#tomorrow#' == 'orange'){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-orange');

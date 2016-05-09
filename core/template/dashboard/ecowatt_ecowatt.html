@@ -17,16 +17,16 @@
 	</div>
 
 	<script>
-		if('#today#' == 'vert'){
+		if('#today#' == 'vert' || '#today#' == 'verte' ){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').css('color','#2ecc71');
 		}else if('#today#' == 'orange'){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').css('color','#e67e22');
 		}else if('#today#' == 'rouge'){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').css('color','#e74c3c');
 		}
-		if('#tomorrow#' == 'vert'){
+		if('#tomorrow#' == 'vert' || '#today#' == 'verte'){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('color','#2ecc71');
-		}else if('#tomorrow#' == 'prange'){
+		}else if('#tomorrow#' == 'orange'){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('color','#e67e22');
 		}else if('#tomorrow#' == 'rouge'){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').css('color','#e74c3c');
