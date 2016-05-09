@@ -21,18 +21,10 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class ecowatt extends eqLogic {
 	/*     * *************************Attributs****************************** */
+	public static $_widgetPossibility = array('custom' => true);
 
 	/*     * ***********************Methode static*************************** */
 
-	/*
-	 * Fonction exécutée automatiquement toutes les minutes par Jeedom
-	public static function cron() {
-
-	}
-	 */
-
-	/*
-	 * Fonction exécutée automatiquement toutes les heures par Jeedom	 */
 	public static function cronHourly() {
 		foreach (self::byType('ecowatt') as $ecowatt) {
 			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp' || $ecowatt->getConfiguration('datasource') == 'tempo') {
@@ -52,13 +44,6 @@ class ecowatt extends eqLogic {
 		}
 		return json_decode($dataUrl, true);
 	}
-
-	/*
-	 * Fonction exécutée automatiquement tous les jours par Jeedom
-	public static function cronDayly() {
-
-	}
-	 */
 
 	/*     * *********************Méthodes d'instance************************* */
 
@@ -188,7 +173,6 @@ class ecowatt extends eqLogic {
 		$refresh->setOrder(99);
 		$refresh->save();
 
-
 		$this->updateInfo();
 	}
 
@@ -212,7 +196,7 @@ class ecowatt extends eqLogic {
 				phpQuery::newDocumentHTML($html);
 				$result = pq('div.alertes.small')->html();
 				$result = substr($result, strpos($result, 'alt='));
-				$result = substr($result, strpos($result, ' '), + 15);
+				$result = substr($result, strpos($result, ' '), +15);
 				$result = substr($result, 0, strpos($result, '"'));
 				$result = strtolower($result);
 				$result = explode(' ', trim($result));
@@ -311,22 +295,11 @@ class ecowatt extends eqLogic {
 	}
 
 	public function toHtml($_version = 'dashboard') {
-		if ($this->getIsEnable() != 1) {
-			return '';
+		$replace = $this->preToHtml($_version, array('#background-color#' => '#bdc3c7'));
+		if (!is_array($replace)) {
+			return $replace;
 		}
-		if (!$this->hasRight('r')) {
-			return '';
-		}
-
-		$_version = jeedom::versionAlias($_version);
-		if ($this->getDisplay('hideOn' . $_version) == 1) {
-			return '';
-		}
-		$replace = array(
-			'#name#' => $this->getName(),
-			'#id#' => $this->getId(),
-			'#eqLink#' => $this->getLinkToConfiguration(),
-		);
+		$version = jeedom::versionAlias($_version);
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -337,11 +310,9 @@ class ecowatt extends eqLogic {
 			}
 
 		}
-		$parameters = $this->getDisplay('parameters');
-		if (is_array($parameters)) {
-			foreach ($parameters as $key => $value) {
-				$replace['#' . $key . '#'] = $value;
-			}
+		$refresh = $this->getCmd(null, 'refresh');
+		if (is_object($refresh)) {
+			$replace['#refresh_id#'] = $refresh->getId();
 		}
 		if ($this->getConfiguration('datasource') == 'ecowatt') {
 			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ecowatt', 'ecowatt'));
@@ -356,12 +327,6 @@ class ecowatt extends eqLogic {
 			return $html;
 		}
 	}
-	/*
-	 * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
-	public function toHtml($_version = 'dashboard') {
-
-	}
-	 */
 
 	/*     * **********************Getteur Setteur*************************** */
 }
@@ -373,15 +338,8 @@ class ecowattCmd extends cmd {
 
 	/*     * *********************Methode d'instance************************* */
 
-	/*
-	 * Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
-	public function dontRemoveCmd() {
-	return true;
-	}
-	 */
-
 	public function execute($_options = array()) {
-		if($this->getLogicalId() == 'refresh'){
+		if ($this->getLogicalId() == 'refresh') {
 			$eqLogic = $this->getEqLogic();
 			$eqLogic->updateInfo();
 		}
