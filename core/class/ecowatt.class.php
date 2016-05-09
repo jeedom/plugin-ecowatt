@@ -156,7 +156,7 @@ class ecowatt extends eqLogic {
 		}
 
 		foreach ($this->getCmd() as $cmd) {
-			if (!isset($cmd_list[$cmd->getLogicalId()])) {
+			if (!isset($cmd_list[$cmd->getLogicalId()]) && $cmd->getLogicalId() != 'refresh') {
 				$cmd->remove();
 			}
 		}
@@ -175,6 +175,19 @@ class ecowatt extends eqLogic {
 			$cmd->setEventOnly(1);
 			$cmd->save();
 		}
+
+		$refresh = $this->getCmd(null, 'refresh');
+		if (!is_object($refresh)) {
+			$refresh = new ecowattCmd();
+			$refresh->setName(__('Rafraichir', __FILE__));
+		}
+		$refresh->setEqLogic_id($this->getId());
+		$refresh->setLogicalId('refresh');
+		$refresh->setType('action');
+		$refresh->setSubType('other');
+		$refresh->setOrder(99);
+		$refresh->save();
+
 
 		$this->updateInfo();
 	}
@@ -275,6 +288,7 @@ class ecowatt extends eqLogic {
 				# code...
 				break;
 		}
+		$this->refreshWidget();
 	}
 
 	public function fillValue($_logicalId, $_value, $_data, $_default = 'N/A') {
@@ -367,6 +381,10 @@ class ecowattCmd extends cmd {
 	 */
 
 	public function execute($_options = array()) {
+		if($this->getLogicalId() == 'refresh'){
+			$eqLogic = $this->getEqLogic();
+			$eqLogic->updateInfo();
+		}
 
 	}
 
