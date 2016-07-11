@@ -13,10 +13,10 @@ $eqLogics = eqLogic::byType('ecowatt');
                 <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un ecowatt}}</a>
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
                 <?php
-                foreach ($eqLogics as $eqLogic) {
-                   echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
-               }
-               ?>
+foreach ($eqLogics as $eqLogic) {
+	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
+}
+?>
            </ul>
        </div>
    </div>
@@ -33,15 +33,15 @@ $eqLogics = eqLogic::byType('ecowatt');
     </div>
 
     <?php
-    foreach ($eqLogics as $eqLogic) {
-       echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
-       echo "<center>";
-       echo '<img src="plugins/ecowatt/doc/images/ecowatt_icon.png" height="105" width="95" />';
-       echo "</center>";
-       echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
-       echo '</div>';
-   }
-   ?>
+foreach ($eqLogics as $eqLogic) {
+	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
+	echo "<center>";
+	echo '<img src="plugins/ecowatt/doc/images/ecowatt_icon.png" height="105" width="95" />';
+	echo "</center>";
+	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
+	echo '</div>';
+}
+?>
 </div>
 </div>
 
@@ -62,20 +62,20 @@ $eqLogics = eqLogic::byType('ecowatt');
                     <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
                         <option value="">{{Aucun}}</option>
                         <?php
-                        foreach (object::all() as $object) {
-                           echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-                       }
-                       ?>
+foreach (object::all() as $object) {
+	echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
+}
+?>
                    </select>
                </div>
            </div>
-           <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-9">
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
-           </div>
-       </div>
+  <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+            <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+        </div>
+    </div>
        <div class="form-group">
            <label class="col-sm-3 control-label">{{Type de source de données}}</label>
            <div class="col-sm-3">
