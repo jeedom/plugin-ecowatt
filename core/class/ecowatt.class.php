@@ -315,16 +315,13 @@ class ecowatt extends eqLogic {
 			$replace['#refresh_id#'] = $refresh->getId();
 		}
 		if ($this->getConfiguration('datasource') == 'ecowatt') {
-			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ecowatt', 'ecowatt'));
-			return $html;
+			return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $_version, 'ecowatt_ecowatt', 'ecowatt')));
 		}
 		if ($this->getConfiguration('datasource') == 'ejp') {
-			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_ejp', 'ecowatt'));
-			return $html;
+			return $this->postToHtml($_version, getTemplate('core', $_version, 'ecowatt_ejp', 'ecowatt'));
 		}
 		if ($this->getConfiguration('datasource') == 'tempo') {
-			$html = template_replace($replace, getTemplate('core', $_version, 'ecowatt_tempo', 'ecowatt'));
-			return $html;
+			return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $_version, 'ecowatt_tempo', 'ecowatt')));
 		}
 	}
 
