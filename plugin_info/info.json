@@ -1,0 +1,10 @@
+{
+	"id" : "ecowatt",
+	"name" : "Eco-2-watt",
+	"description" : "Plugin qui remonte les informations Ecowatt et EJP",
+	"licence" : "AGPL",
+	"author" : "Marie",
+	"require" : "2.3",
+	"category" : "energy",
+	"include" : {"type" : "php" , "file" : "ecowatt.inc" }
+}
