@@ -4,7 +4,7 @@
 	"description" : "Plugin qui remonte les informations Ecowatt et EJP",
 	"licence" : "AGPL",
 	"author" : "Marie",
-	"require" : "2.3",
+	"require" : "2.4",
 	"category" : "energy",
 	"include" : {"type" : "php" , "file" : "ecowatt.inc" }
 }
