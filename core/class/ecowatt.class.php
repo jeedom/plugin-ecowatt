@@ -200,14 +200,8 @@ class ecowatt extends eqLogic {
 				$result = substr($result, 0, strpos($result, '"'));
 				$result = strtolower($result);
 				$result = explode(' ', trim($result));
-				$today = $this->getCmd(null, 'today');
-				if (is_object($today) && $today->execCmd(null, 2) != $today->formatValue($result[0])) {
-					$today->event($result[0]);
-				}
-				$tomorrow = $this->getCmd(null, 'tomorrow');
-				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($result[1])) {
-					$tomorrow->event($result[1]);
-				}
+				$this->checkAndUpdateCmd('today', $result[0]);
+				$this->checkAndUpdateCmd('tomorrow', $result[1]);
 				break;
 
 			case 'ejp':
@@ -235,18 +229,13 @@ class ecowatt extends eqLogic {
 						$value = 'EJP';
 					}
 				}
-				$tomorrow = $this->getCmd(null, 'tomorrow');
-				if (is_object($tomorrow) && $tomorrow->execCmd(null, 2) != $tomorrow->formatValue($value)) {
-					$tomorrow->event($value);
-				}
+				$this->checkAndUpdateCmd('tomorrow', $value);
 
 				$ejptotaldays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/historicEJPStore?searchType=ejp');
 				$region = str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'));
 				$this->fillValue('totalDays', $region . '::Total', $ejptotaldays, -1);
 				$totalDays = $this->getCmd(null, 'totalDays');
-				$remainingDays = $this->getCmd(null, 'remainingDays');
-				$remainingDays->event(22 - $totalDays->execCmd(null, 2));
-
+				$remainingDays = $this->getCmd(null, 'remainingDays')->event(22 - $totalDays->execCmd(null, 2));
 				break;
 
 			case 'tempo':
@@ -288,10 +277,7 @@ class ecowatt extends eqLogic {
 		if (!is_array($_data) && $_data !== null) {
 			$result = $_data;
 		}
-		$cmd = $this->getCmd(null, $_logicalId);
-		if (is_object($cmd) && $cmd->execCmd(null, 2) !== $cmd->formatValue($result)) {
-			$cmd->event($result);
-		}
+		$this->checkAndUpdateCmd($_logicalId, $result);
 	}
 
 	public function toHtml($_version = 'dashboard') {
