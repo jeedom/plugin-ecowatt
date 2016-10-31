@@ -1,16 +1,16 @@
-== Configuration du plugin
+== Plugin Konfiguration
 
-Après téléchargement du plugin, il vous suffit juste d'activer celui-ci, il n'y a aucune configuration à ce niveau.
+Nach dem Download des Plugins, muß es einfach nur aktiviert werden, es gibt keine Konfiguration auf dieser Ebene.
 
 image::../images/ecowatt.PNG[]
 
-== Configuration des équipements
+== Geräte Konfiguration
 
-La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugin : 
+Die Eco2Watt Geräte Konfiguration ist erreichbar über das Plugin-Menü : 
 
 image::../images/ecowatt2.PNG[]
 
-Voilà à quoi ressemble la page du plugin Eco 2 Watt (ici avec déjà des équipements) : 
+Dies ist die Seite des Eco2Watt Plugins (hier bereits mit Geräten) : 
 
 image::../images/ecowatt3.PNG[]
 
@@ -80,7 +80,7 @@ _Pour ces deux commandes les valeurs peuvent être :_
 +
 _Pour ces deux commandes les valeurs sont des nombres._
 
-=== Commandes Tempo
+=== Tempo Befehle
 
 Pour Tempo, 8 commandes existent :
 
