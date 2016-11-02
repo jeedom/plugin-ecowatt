@@ -62,7 +62,7 @@ _Pour ces deux commandes les valeurs peuvent être :_
 ** Orange : la tendance est orange (il faut faire attention à ses consommations),
 ** Rouge : la tendance est rouge (il faut réduire ses consommations afin d'éviter une coupure généralisée).
 
-=== Commandes EJP
+=== EJP Befehle
 
 Pour EJP, 4 commandes existent :
 
@@ -89,24 +89,24 @@ Pour Tempo, 8 commandes existent :
 +
 _Pour ces deux commandes les valeurs peuvent être :_
 
-** Bleu : le jour est "bleu",
-** Blanc : le jour est "blanc",
-** Rouge : le jour est "rouge".
+** Blau : der Tag ist "blau",
+** Weiß : der Tag ist "weiß",
+** Rot : der Tag ist "rot".
 
-Pour chaque couleur de jour (Bleu - Blanc - Rouge) :
+Jür jeden Tag eine Farbe (blau - weiß - rot) :
 
 * Jours restants : indique le nombre de jours de cette couleur qu'il reste pour la période Tempo en cours,
 * Total de jours EJP : indique le nombre total de jours de cette couleur prévus pour la période Tempo en cours.
 +
-_Pour ces commandes les valeurs sont des nombres._
+_Für diese Befehle sind die Werte Zahlen._
 
 === Widgets
 
-Les widgets desktop ressemblent à cela :
+Desktop-Widgets sind ähnlich wie dieses :
 
 image::../images/ecowatt5.PNG[]
 
-Les widgets mobile ressemblent à cela :
+Mobile-Widgets sind ähnlich wie dieses :
 
 image::../images/ecowatt6.PNG[]
 
