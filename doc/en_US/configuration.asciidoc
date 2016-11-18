@@ -1,32 +1,32 @@
-== Configuration du plugin
+=== The plugin configuration
 
-Après téléchargement du plugin, il vous suffit juste d'activer celui-ci, il n'y a aucune configuration à ce niveau.
+After downloading the plugin , you must activate it.
 
 image::../images/ecowatt.PNG[]
 
-== Configuration des équipements
+=== Equipment Configuration 
 
 La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugin : 
 
 image::../images/ecowatt2.PNG[]
 
-Voilà à quoi ressemble la page du plugin Eco 2 Watt (ici avec déjà des équipements) : 
+This is the page of the Eco 2 Watt plugin (here with equipment already): 
 
 image::../images/ecowatt3.PNG[]
 
 [TIP]
-Comme à beaucoup d'endroits sur Jeedom, placer la souris tout à gauche permet de faire apparaître un menu d'accès rapide (vous pouvez, à partir de votre profil, le laisser toujours visible).
+As in many places on Jeedom, place the mouse to the left allows to show a quick access menu (you can, from your profile, let it always visible).
 
-Une fois que vous cliquez sur le bouton + (Ajouter un nouvel équipement), et après avoir donné un nom à votre équipement, vous obtenez : 
+Once you click the + (Add a new equipment), and after giving a name to your device, you obtain: 
 
 image::../images/ecowatt4.PNG[]
 
-Vous retrouvez ici toute la configuration de votre équipement : 
+You will find here all the configuration of your equipment: 
 
-* *Nom de l'équipement : nom de votre équipement Eco 2 Watt,
-* *Objet parent* : indique l'objet parent auquel appartient l'équipement,
-* *Activer* : permet de rendre votre équipement actif,
-* *Visible* : rend votre équipement visible sur le dashboard.
+* *Name of the equipment*: name of your Eco 2 Watt equipment.
+* *Parent object*: Specifies the parent object that owns the equipment,
+* *Activate*: to make your equipment active,
+* *Visible*: makes your equipment visible on the dashboard.
 
 Ensuite, vous avez deux autres paramètres à configurer :
 

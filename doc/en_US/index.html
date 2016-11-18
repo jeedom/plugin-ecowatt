@@ -415,16 +415,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Eco 2 Watt</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
-<ul class="sectlevel1">
-<li><a href="#_configuration_du_plugin">1. Configuration du plugin</a></li>
-<li><a href="#_configuration_des_équipements">2. Configuration des équipements</a>
 <ul class="sectlevel2">
-<li><a href="#_commandes_ecowatt">2.1. Commandes EcoWatt</a></li>
-<li><a href="#_commandes_ejp">2.2. Commandes EJP</a></li>
-<li><a href="#_commandes_tempo">2.3. Commandes Tempo</a></li>
-<li><a href="#_widgets">2.4. Widgets</a></li>
-</ul>
-</li>
+<li><a href="#_the_plugin_configuration">1. The plugin configuration</a></li>
+<li><a href="#_equipment_configuration">2. Equipment Configuration</a></li>
+<li><a href="#_commandes_ecowatt">3. Commandes EcoWatt</a></li>
+<li><a href="#_commandes_ejp">4. Commandes EJP</a></li>
+<li><a href="#_commandes_tempo">5. Commandes Tempo</a></li>
+<li><a href="#_widgets">6. Widgets</a></li>
 </ul>
 </div>
 </div>
@@ -432,15 +429,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ce plugin permet de récupérer les informations des sites EcoWatt, EJP et Tempo (edf), notamment dans l&#8217;optique de s&#8217;en servir (dans des scénarios) pour réduire ses consommations électriques en cas de fortes tensions sur le réseau électrique ou lors des jours EJP (selon les contrats d&#8217;électricité souscrits).</p>
+<p>This plugin allows to retrieve information from the sites EcoWatt, EJP and Tempo (edf), especially in order to use it (in some scenarios) to reduce its electrical consumption in case of tensions on the grid or in the days EJP (according to electricity contracts subscribed).</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_configuration_du_plugin">1. Configuration du plugin</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_the_plugin_configuration">1. The plugin configuration</h3>
 <div class="paragraph">
-<p>Après téléchargement du plugin, il vous suffit juste d&#8217;activer celui-ci, il n&#8217;y a aucune configuration à ce niveau.</p>
+<p>After downloading the plugin , you must activate it.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -448,10 +444,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_configuration_des_équipements">2. Configuration des équipements</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_equipment_configuration">2. Equipment Configuration</h3>
 <div class="paragraph">
 <p>La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugin :</p>
 </div>
@@ -461,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Voilà à quoi ressemble la page du plugin Eco 2 Watt (ici avec déjà des équipements) :</p>
+<p>This is the page of the Eco 2 Watt plugin (here with equipment already):</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -475,13 +469,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche permet de faire apparaître un menu d&#8217;accès rapide (vous pouvez, à partir de votre profil, le laisser toujours visible).
+As in many places on Jeedom, place the mouse to the left allows to show a quick access menu (you can, from your profile, let it always visible).
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Une fois que vous cliquez sur le bouton + (Ajouter un nouvel équipement), et après avoir donné un nom à votre équipement, vous obtenez :</p>
+<p>Once you click the + (Add a new equipment), and after giving a name to your device, you obtain:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -489,21 +483,21 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 </div>
 </div>
 <div class="paragraph">
-<p>Vous retrouvez ici toute la configuration de votre équipement :</p>
+<p>You will find here all the configuration of your equipment:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>*Nom de l&#8217;équipement : nom de votre équipement Eco 2 Watt,</p>
+<p><strong>Name of the equipment</strong>: name of your Eco 2 Watt equipment.</p>
 </li>
 <li>
-<p><strong>Objet parent</strong> : indique l&#8217;objet parent auquel appartient l&#8217;équipement,</p>
+<p><strong>Parent object</strong>: Specifies the parent object that owns the equipment,</p>
 </li>
 <li>
-<p><strong>Activer</strong> : permet de rendre votre équipement actif,</p>
+<p><strong>Activate</strong>: to make your equipment active,</p>
 </li>
 <li>
-<p><strong>Visible</strong> : rend votre équipement visible sur le dashboard.</p>
+<p><strong>Visible</strong>: makes your equipment visible on the dashboard.</p>
 </li>
 </ul>
 </div>
@@ -558,8 +552,9 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 <div class="paragraph">
 <p>Les boutons "Afficher" et "Historiser" sont les boutons habituels d&#8217;affichage (ou non) de la commande sur le widget et de son historisation (ou non).</p>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_commandes_ecowatt">2.1. Commandes EcoWatt</h3>
+<h3 id="_commandes_ecowatt">3. Commandes EcoWatt</h3>
 <div class="paragraph">
 <p>Pour EcoWatt, 2 commandes existent :</p>
 </div>
@@ -591,7 +586,7 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 </div>
 </div>
 <div class="sect2">
-<h3 id="_commandes_ejp">2.2. Commandes EJP</h3>
+<h3 id="_commandes_ejp">4. Commandes EJP</h3>
 <div class="paragraph">
 <p>Pour EJP, 4 commandes existent :</p>
 </div>
@@ -632,7 +627,7 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 </div>
 </div>
 <div class="sect2">
-<h3 id="_commandes_tempo">2.3. Commandes Tempo</h3>
+<h3 id="_commandes_tempo">5. Commandes Tempo</h3>
 <div class="paragraph">
 <p>Pour Tempo, 8 commandes existent :</p>
 </div>
@@ -680,7 +675,7 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 </div>
 </div>
 <div class="sect2">
-<h3 id="_widgets">2.4. Widgets</h3>
+<h3 id="_widgets">6. Widgets</h3>
 <div class="paragraph">
 <p>Les widgets desktop ressemblent à cela :</p>
 </div>
@@ -703,8 +698,6 @@ Comme à beaucoup d&#8217;endroits sur Jeedom, placer la souris tout à gauche p
 <hr>
 <div class="paragraph">
 <p>Unresolved directive in index.asciidoc - include::changelog.asciidoc[]</p>
-</div>
-</div>
 </div>
 </div>
 </div>
