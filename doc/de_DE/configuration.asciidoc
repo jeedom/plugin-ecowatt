@@ -49,7 +49,7 @@ En-dessous vous retrouvez la liste des commandes :
 
 Les boutons "Afficher" et "Historiser" sont les boutons habituels d'affichage (ou non) de la commande sur le widget et de son historisation (ou non).
 
-=== Commandes EcoWatt
+=== EcoWatt Befehle
 
 Pour EcoWatt, 2 commandes existent :
 
