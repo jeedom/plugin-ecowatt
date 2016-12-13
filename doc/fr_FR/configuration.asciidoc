@@ -89,9 +89,9 @@ Pour Tempo, 8 commandes existent :
 +
 _Pour ces deux commandes les valeurs peuvent être :_
 
-** Bleu : le jour est "bleu",
-** Blanc : le jour est "blanc",
-** Rouge : le jour est "rouge".
+** BLEU : le jour est "bleu",
+** BLANC : le jour est "blanc",
+** ROUGE : le jour est "rouge".
 
 Pour chaque couleur de jour (Bleu - Blanc - Rouge) :
 
