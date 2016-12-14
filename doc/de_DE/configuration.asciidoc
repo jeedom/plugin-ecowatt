@@ -89,9 +89,9 @@ Pour Tempo, 8 commandes existent :
 +
 _Pour ces deux commandes les valeurs peuvent être :_
 
-** Blau : der Tag ist "blau",
-** Weiß : der Tag ist "weiß",
-** Rot : der Tag ist "rot".
+** BLEU : le jour est "bleu",
+** BLANC : le jour est "blanc",
+** ROUGE : le jour est "rouge".
 
 Jür jeden Tag eine Farbe (blau - weiß - rot) :
 
