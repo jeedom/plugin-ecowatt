@@ -66,13 +66,13 @@ _Pour ces deux commandes les valeurs peuvent être :_
 
 Pour EJP, 4 commandes existent :
 
-* Aujourd'hui : permet de savoir si la date du jour est en EJP ou pas,
+* Today : Is this day on EJP or not,
 * Demain : permet de savoir si le lendemain est en EJP ou pas.
 +
 _Pour ces deux commandes les valeurs peuvent être :_
 
 ** Pas d'EJP : la date du jour n'est pas en EJP
-** EJP : la date du jour est en EJP
+** EJP : day is on EJP
 ** Non déterminé : le site n'a pas communiqué l'information
 
 * Jours EJP restants : indique le nombre de jours EJP qu'il reste pour la période EJP (1er novembre - 31 mars) en cours,
