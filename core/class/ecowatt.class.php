@@ -28,7 +28,7 @@ class ecowatt extends eqLogic {
 	public static function cronHourly() {
 		foreach (self::byType('ecowatt') as $ecowatt) {
 			if ($ecowatt->getConfiguration('datasource') == 'ecowatt' || $ecowatt->getConfiguration('datasource') == 'ejp' || $ecowatt->getConfiguration('datasource') == 'tempo') {
-				if (date('H') != 1 && date('H') != 7 && date('H') != 10 && date('H') != 16 && date('H') != 18 && date('H') != 23) {
+				if (date('H') != 7 && date('H') != 10 && date('H') != 13 && date('H') != 16 && date('H') != 19 && date('H') != 22) {
 					continue;
 				}
 			}
