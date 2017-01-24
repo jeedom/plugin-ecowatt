@@ -1,6 +1,6 @@
 = Eco 2 Watt
 
-Ce plugin permet de récupérer les informations des sites EcoWatt, EJP et Tempo (edf), notamment dans l'optique de s'en servir (dans des scénarios) pour réduire ses consommations électriques en cas de fortes tensions sur le réseau électrique ou lors des jours EJP (selon les contrats d'électricité souscrits).
+Ce plugin permet de récupérer les informations des sites EcoWatt, EJP et Tempo (EDF), notamment dans l'optique de s'en servir (dans des scénarios) pour réduire ses consommations électriques en cas de fortes tensions sur le réseau électrique ou lors des jours EJP (selon les contrats d'électricité souscrits).
 
 include::configuration.asciidoc[]
 
