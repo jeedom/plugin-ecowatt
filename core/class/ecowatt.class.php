@@ -18,6 +18,7 @@
 
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
 class ecowatt extends eqLogic {
 	/*     * *************************Attributs****************************** */
@@ -27,12 +28,12 @@ class ecowatt extends eqLogic {
 
 	public static function cronHourly() {
 		$hour = array(
-			'ejp' => array(1,6,12,16,19,23),
-			'ecowatt' => array(6,10,13,16,19,23),
-			'tempo' => array(6,10,13,16,19,23)
+			'ejp' => array(1, 6, 12, 16, 19, 23),
+			'ecowatt' => array(6, 10, 13, 16, 19, 23),
+			'tempo' => array(6, 10, 13, 16, 19, 23),
 		);
 		foreach (self::byType('ecowatt') as $ecowatt) {
-			if(isset($hour[$ecowatt->getConfiguration('datasource')]) && !in_array(date('H'),$hour[$ecowatt->getConfiguration('datasource')])){
+			if (isset($hour[$ecowatt->getConfiguration('datasource')]) && !in_array(date('H'), $hour[$ecowatt->getConfiguration('datasource')])) {
 				continue;
 			}
 			$ecowatt->updateInfo();
