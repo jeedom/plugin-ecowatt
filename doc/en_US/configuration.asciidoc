@@ -2,24 +2,9 @@
 
 After downloading the plugin , you must activate it.
 
-image::../images/ecowatt.PNG[]
-
 === Equipment Configuration 
 
-La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugins : 
-
-image::../images/ecowatt2.PNG[]
-
-This is the page of the Eco 2 Watt plugin (here with equipment already): 
-
-image::../images/ecowatt3.PNG[]
-
-[TIP]
-As in many places on Jeedom, place the mouse to the left allows to show a quick access menu (you can, from your profile, let it always visible).
-
-Once you click the + (Add a new equipment), and after giving a name to your device, you obtain: 
-
-image::../images/ecowatt4.PNG[]
+La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugins puis energie : 
 
 You will find here all the configuration of your equipment: 
 
@@ -101,13 +86,5 @@ Pour chaque couleur de jour (Bleu - Blanc - Rouge) :
 _Pour ces commandes les valeurs sont des nombres._
 
 === Widgets
-
-Les widgets desktop ressemblent à cela :
-
-image::../images/ecowatt5.PNG[]
-
-Les widgets mobile ressemblent à cela :
-
-image::../images/ecowatt6.PNG[]
 
 Les couleurs changent en fonction de la tendance (pour un équipement EcoWatt) et en fonction de l'état EJP (pour un équipement EJP).
