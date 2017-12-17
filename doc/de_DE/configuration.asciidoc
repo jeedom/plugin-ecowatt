@@ -4,9 +4,9 @@ Nach dem Download des Plugins, muß es einfach nur aktiviert werden, es gibt kei
 
 == Geräte Konfiguration
 
-La configuration des équipements Eco 2 Watt est accessible à partir du menu Plugins puis energie : 
+Die Eco-2-Watt GeräteKonfiguration erreichen Sie aus dem Menü Plugins und Energie : 
 
-Vous retrouvez ici toute la configuration de votre équipement : 
+Hier finden Sie die ganze Konfiguration des Geräts : 
 
 * *Nom de l'équipement : nom de votre équipement Eco 2 Watt,
 * *Objet parent* : indique l'objet parent auquel appartient l'équipement,
