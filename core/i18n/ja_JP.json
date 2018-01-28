@@ -1,0 +1,44 @@
+{
+    "plugins\/ecowatt\/plugin_info\/info.xml": {
+        "Plugin qui remonte les informations Ecowatt PACA et Bretagne": "Plugin qui remonte les informations Ecowatt PACA et Bretagne",
+        "Aucune": "Aucune"
+    },
+    "plugins\/ecowatt\/desktop\/php\/ecowatt.php": {
+        "Ajouter un ecowatt": "Ajouter un ecowatt",
+        "Rechercher": "Rechercher",
+        "Mes Eco 2 Watts": "Mes Eco 2 Watts",
+        "Général": "Général",
+        "Nom de l'équipement EcoWatt": "Nom de l'équipement EcoWatt",
+        "Nom de l'équipement ecowatt": "Nom de l'équipement ecowatt",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Type de source de données": "Type de source de données",
+        "EcoWatt": "EcoWatt",
+        "Eco2Mix": "Eco2Mix",
+        "EJP": "EJP",
+        "Commandes Eco 2 Watt": "Commandes Eco 2 Watt",
+        "Nom": "Nom",
+        "Paramètres": "Paramètres",
+        "Supprimer": "Supprimer",
+        "Sauvegarder": "Sauvegarder",
+        "Région": "Région",
+        "Bretagne": "Bretagne",
+        "Provence-Alpes-Côtes d'Azur": "Provence-Alpes-Côtes d'Azur",
+        "Zone Nord": "Zone Nord",
+        "Zone Provence, Alpes, Côtes d'Azur": "Zone Provence, Alpes, Côtes d'Azur",
+        "Zone Ouest": "Zone Ouest",
+        "Zone Sud": "Zone Sud"
+    },
+    "plugins\/ecowatt\/desktop\/js\/ecowatt.js": {
+        "Nom": "Nom",
+        "Historiser": "Historiser",
+        "Afficher": "Afficher",
+        "Tester": "Tester"
+    },
+    "plugins\/ecowatt\/core\/class\/ecowatt.class.php": {
+        "Aujourd'hui": "Aujourd'hui",
+        "Demain": "Demain"
+    }
+}
