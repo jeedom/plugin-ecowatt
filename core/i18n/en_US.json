@@ -33,7 +33,7 @@
     },
     "plugins\/ecowatt\/desktop\/js\/ecowatt.js": {
         "Nom": "Name",
-        "Historiser": "Logging",
+        "Historiser": "Historize",
         "Afficher": "Show",
         "Tester": "Test"
     },
