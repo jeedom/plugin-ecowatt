@@ -32,7 +32,7 @@ class ecowatt extends eqLogic {
 			'ecowatt' => array(6, 10, 13, 16, 19, 23),
 			'tempo' => array(6, 10, 13, 16, 19, 23),
 		);
-		foreach (self::byType('ecowatt') as $ecowatt) {
+		foreach (self::byType('ecowatt',true) as $ecowatt) {
 			if (isset($hour[$ecowatt->getConfiguration('datasource')]) && !in_array(date('H'), $hour[$ecowatt->getConfiguration('datasource')])) {
 				continue;
 			}
@@ -57,20 +57,6 @@ class ecowatt extends eqLogic {
 
 	public function postSave() {
 		$cmd_list = array();
-		if ($this->getConfiguration('datasource') == 'ecowatt') {
-			$cmd_list = array(
-				'today' => array(
-					'name' => __('Aujourd\'hui', __FILE__),
-					'subtype' => 'string',
-					'order' => 1,
-				),
-				'tomorrow' => array(
-					'name' => __('Demain', __FILE__),
-					'subtype' => 'string',
-					'order' => 2,
-				),
-			);
-		}
 		if ($this->getConfiguration('datasource') == 'ejp') {
 			$cmd_list = array(
 				'today' => array(
@@ -139,11 +125,6 @@ class ecowatt extends eqLogic {
 				),
 			);
 		}
-
-		if ($this->getConfiguration('datasource') == 'eco2mix') {
-
-		}
-
 		foreach ($this->getCmd() as $cmd) {
 			if (!isset($cmd_list[$cmd->getLogicalId()]) && $cmd->getLogicalId() != 'refresh') {
 				$cmd->remove();
@@ -182,32 +163,6 @@ class ecowatt extends eqLogic {
 
 	public function updateInfo() {
 		switch ($this->getConfiguration('datasource')) {
-			case 'ecowatt':
-				$url = '';
-				switch ($this->getConfiguration('region-ew')) {
-					case 'bretagne':
-						$url = 'http://www.ecowatt-bretagne.fr/restez-au-courant/alertes-2/';
-						break;
-					case 'paca':
-						$url = 'http://www.ecowatt-paca.fr/restez-au-courant/alertes-2/';
-						break;
-				}
-				if ($url == '') {
-					return;
-				}
-				$request_http = new com_http($url);
-				$html = $request_http->exec();
-				phpQuery::newDocumentHTML($html);
-				$result = pq('div.alertes.small')->html();
-				$result = substr($result, strpos($result, 'alt='));
-				$result = substr($result, strpos($result, ' '), +15);
-				$result = substr($result, 0, strpos($result, '"'));
-				$result = strtolower($result);
-				$result = explode(' ', trim($result));
-				$this->checkAndUpdateCmd('today', $result[0]);
-				$this->checkAndUpdateCmd('tomorrow', $result[1]);
-				break;
-
 			case 'ejp':
 				$ejpdays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=EJP');
 				$region = 'Ejp' . ucfirst(strtolower(str_replace(array('_', 'EJP'), '', $this->getConfiguration('region-ejp'))));
@@ -241,7 +196,6 @@ class ecowatt extends eqLogic {
 				$totalDays = $this->getCmd(null, 'totalDays');
 				$remainingDays = $this->getCmd(null, 'remainingDays')->event(22 - $totalDays->execCmd(null, 2));
 				break;
-
 			case 'tempo':
 				$tempodays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=TEMPO');
 				$this->fillValue('today', 'JourJ::Tempo', $tempodays);
@@ -258,11 +212,6 @@ class ecowatt extends eqLogic {
 				$this->fillValue('white-totalDays', 'param.nb.blanc.periode', $tempodays);
 				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.rouge.periode');
 				$this->fillValue('red-totalDays', 'param.nb.rouge.periode', $tempodays);
-
-				break;
-
-			case 'eco2mix':
-				# code...
 				break;
 		}
 		$this->refreshWidget();
