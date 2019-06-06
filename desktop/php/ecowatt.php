@@ -79,22 +79,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							<label class="col-sm-3 control-label">{{Type de source de données}}</label>
 							<div class="col-sm-3">
 								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="datasource">
-									<option value="ecowatt">{{EcoWatt}}</option>
-									<!-- <option value="eco2mix">{{Eco2Mix}}</option> -->
 									<option value="ejp">{{EJP}}</option>
 									<option value="tempo">{{Tempo (EDF)}}</option>
 								</select>
-							</div>
-						</div>
-						<div class="datasource ecowatt">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">{{Région}}</label>
-								<div class="col-sm-3">
-									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="region-ew">
-										<option value="bretagne">{{Bretagne}}</option>
-										<option value="paca">{{Provence-Alpes-Côtes d'Azur}}</option>
-									</select>
-								</div>
 							</div>
 						</div>
 						<div class="datasource ejp">
