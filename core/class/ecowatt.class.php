@@ -42,6 +42,7 @@ class ecowatt extends eqLogic {
 
 	public static function valueFromUrl($_url) {
 		$request_http = new com_http($_url);
+        $request_http->setUserAgent('curl');
 		$dataUrl = $request_http->exec();
 		if (!is_json($dataUrl)) {
 			return;
