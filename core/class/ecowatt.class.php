@@ -30,7 +30,7 @@ class ecowatt extends eqLogic {
 		$hour = array(
 			'ejp' => array(1, 6, 12, 16, 19, 23),
 			'ecowatt' => array(6, 10, 13, 16, 19, 23),
-			'tempo' => array(6, 10, 13, 16, 19, 23),
+			'tempo' => array(0, 1, 11, 12),
 		);
 		foreach (self::byType('ecowatt',true) as $ecowatt) {
 			if (isset($hour[$ecowatt->getConfiguration('datasource')]) && !in_array(date('H'), $hour[$ecowatt->getConfiguration('datasource')])) {
@@ -41,9 +41,18 @@ class ecowatt extends eqLogic {
 	}
 
 	public static function valueFromUrl($_url) {
-		$request_http = new com_http($_url);
-        $request_http->setUserAgent('curl');
-		$dataUrl = $request_http->exec();
+		  // Methode HA
+		$opts = array(
+		  'http'=>array(
+		    'method'=>"GET",
+		    'header'=>array( "User-Agent: Wget/1.20.3 (linux-gnu)",
+		      "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+		      "Content-Type: application/json"
+		    )
+		  )
+		);
+		$context = stream_context_create($opts);
+		$dataUrl = file_get_contents($_url, false, $context);
 		if (!is_json($dataUrl)) {
 			return;
 		}
