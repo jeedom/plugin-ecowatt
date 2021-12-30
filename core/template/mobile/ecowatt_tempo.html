@@ -25,18 +25,18 @@
 	</div>
 	</center>
 	<script>
-		if("#today#" == "BLEU"){
+		if("#today#" == "TEMPO_BLEU"){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-blue');
-		}else if("#today#" == "BLANC"){
+		}else if("#today#" == "TEMPO_BLANC"){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').css('background-color','#ffffff').css('color','#000000');
-		}else if("#today#" == "ROUGE"){
+		}else if("#today#" == "TEMPO_ROUGE"){
 			$('.eqLogic[data-eqLogic_id=#id#] .today').removeClass('clr-bg-grey').addClass('clr-bg-red');
 		}
-		if("#tomorrow#" == "BLEU"){
+		if("#tomorrow#" == "TEMPO_BLEU"){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-blue');
-		}else if("#tomorrow#" == "BLANC"){
+		}else if("#tomorrow#" == "TEMPO_BLANC"){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').css('background-color','#ffffff').css('color','#000000');
-		}else if("#tomorrow#" == "ROUGE"){
+		}else if("#tomorrow#" == "TEMPO_ROUGE"){
 			$('.eqLogic[data-eqLogic_id=#id#] .tomorrow').removeClass('clr-bg-grey').addClass('clr-bg-red');
 		}
 		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
