@@ -7,5 +7,7 @@
 	"require" : "3.0",
 	"category" : "energy",
 	"changelog" : "https://github.com/jeedom/plugin-ecowatt/blob/stable/doc/#language#/changelog.asciidoc",
-	"documentation" : "https://github.com/jeedom/plugin-ecowatt/blob/stable/doc/#language#/index.asciidoc"
+	"documentation" : "https://github.com/jeedom/plugin-ecowatt/blob/stable/doc/#language#/index.asciidoc",
+	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
+"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }

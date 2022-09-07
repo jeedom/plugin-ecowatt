@@ -30,7 +30,7 @@ class ecowatt extends eqLogic {
 		$hour = array(
 			'ejp' => array(1, 6, 12, 16, 19, 23),
 			'ecowatt' => array(6, 10, 13, 16, 19, 23),
-			'tempo' => array(6, 10, 13, 16, 19, 23),
+			'tempo' => array(6, 11, 13, 16, 19, 23),
 		);
 		foreach (self::byType('ecowatt',true) as $ecowatt) {
 			if (isset($hour[$ecowatt->getConfiguration('datasource')]) && !in_array(date('H'), $hour[$ecowatt->getConfiguration('datasource')])) {
@@ -41,14 +41,14 @@ class ecowatt extends eqLogic {
 	}
 
 	public static function valueFromUrl($_url) {
-		$request_http = new com_http($_url);
-        $request_http->setUserAgent('curl');
-		$dataUrl = $request_http->exec();
-		if (!is_json($dataUrl)) {
-			return;
-		}
-		return json_decode($dataUrl, true);
-	}
+    $request_http = new com_http($_url);
+    $request_http->setUserAgent('Wget/1.20.3 (linux-gnu)'); // User-Agent idem HA
+    $dataUrl = $request_http->exec();
+    if (!is_json($dataUrl)) {
+        return;
+    }
+    return json_decode($dataUrl, true);
+}
 
 	/*     * *********************Méthodes d'instance************************* */
 
@@ -143,7 +143,6 @@ class ecowatt extends eqLogic {
 			$cmd->setType('info');
 			$cmd->setSubType($cmd_info['subtype']);
 			$cmd->setEqLogic_id($this->getId());
-			$cmd->setEventOnly(1);
 			$cmd->save();
 		}
 
@@ -198,22 +197,29 @@ class ecowatt extends eqLogic {
 				$remainingDays = $this->getCmd(null, 'remainingDays')->event(22 - $totalDays->execCmd(null, 2));
 				break;
 			case 'tempo':
-				$tempodays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptemponew?Date_a_remonter=' . date('Y-m-d') . '&TypeAlerte=TEMPO');
-				$this->fillValue('today', 'JourJ::Tempo', $tempodays);
-				$this->fillValue('tomorrow', 'JourJ1::Tempo', $tempodays);
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant=' .date('Y-m-d'));
+        $this->fillValue('today', 'couleurJourJ', $tempodays);
+        $this->fillValue('tomorrow', 'couleurJourJ1', $tempodays);
+        // message::add('TempoEDF 1', $tempodays);
 
-				$tempodays = self::valueFromUrl('https://particulier.edf.fr/bin/edf_rc/servlets/ejptempodaysnew?TypeAlerte=TEMPO');
-				$this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
-				$this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
-				$this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
+        $tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO');
+        $this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
+        $this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
+        $this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
+        // message::add('TempoEDF 2', $tempodays);
 
-				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.bleu.periode');
-				$this->fillValue('blue-totalDays', 'param.nb.bleu.periode', $tempodays);
-				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.blanc.periode');
-				$this->fillValue('white-totalDays', 'param.nb.blanc.periode', $tempodays);
-				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getConfigProperty?PARAM_CONFIG_PROPERTY=param.nb.rouge.periode');
-				$this->fillValue('red-totalDays', 'param.nb.rouge.periode', $tempodays);
-				break;
+        $t = time();
+        if(date('m',$t)<9) { // Avant 1er septembre, L'année en cours est-elle bissextile?
+          $bisext = date('L',$t);
+        } else { // Après septembre, l'année prochaine est-elle bissextile?
+          $t2 = mktime(12,0,0,1,1,date('Y',$t)+1);
+          $bisext = date('L',$t2);
+        }
+        $nbTotBlue = 300 + $bisext;
+        $this->checkAndUpdateCmd('blue-totalDays', $nbTotBlue); // Total jours bleu
+        $this->checkAndUpdateCmd('white-totalDays', 43); // Total jours blanc
+        $this->checkAndUpdateCmd('red-totalDays', 22);   // Total jours rouge
+        break;
 		}
 		$this->refreshWidget();
 	}
