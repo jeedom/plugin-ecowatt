@@ -48,25 +48,26 @@ Pour EcoWatt, 2 commandes existent :
 
 Pour ces deux commandes les valeurs peuvent être :
 
-  - Verte : la tendance est verte ("tout va bien"),
-  - Orange : la tendance est orange (il faut faire attention à ses consommations),
-  - Rouge : la tendance est rouge (il faut réduire ses consommations afin d'éviter une coupure généralisée).
+- Verte : la tendance est verte ("tout va bien"),
+- Orange : la tendance est orange (il faut faire attention à ses consommations),
+- Rouge : la tendance est rouge (il faut réduire ses consommations afin d'éviter une coupure généralisée).
 
 #### Commandes EJP
 
 Pour EJP, 4 commandes existent :
 
+- Jours EJP restants : indique le nombre de jours EJP restants pour la période EJP (1er novembre - 31 mars) en cours,
+- Total de jours EJP : indique le nombre total de jours EJP prévus pour la période EJP (1er novembre - 31 mars) en cours.
 - Aujourd'hui : permet de savoir si la date du jour est en EJP ou pas,
 - Demain : permet de savoir si le lendemain est en EJP ou pas.
 
-Pour ces deux commandes les valeurs peuvent être :
+Pour ces deux dernieres commandes les valeurs peuvent être :
 
 - Pas d'EJP : la date du jour n'est pas en EJP
 - EJP : la date du jour est en EJP
 - Non déterminé : le site n'a pas communiqué l'information
 
-- Jours EJP restants : indique le nombre de jours EJP restants pour la période EJP (1er novembre - 31 mars) en cours,
-- Total de jours EJP : indique le nombre total de jours EJP prévus pour la période EJP (1er novembre - 31 mars) en cours.
+
 
 Pour ces deux commandes les valeurs sont des nombres.
 
@@ -88,7 +89,6 @@ Pour chaque couleur de jour (Bleu - Blanc - Rouge) :
 - Jours restants : indique le nombre de jours de cette couleur restants pour la période Tempo en cours,
 - Total de jours EJP : indique le nombre total de jours de cette couleur prévus pour la période Tempo en cours.
 
-Pour ces commandes les valeurs sont des nombres.
 
 #### Widgets
 
