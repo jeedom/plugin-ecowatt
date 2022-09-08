@@ -42,10 +42,12 @@ Les boutons "Afficher" et "Historiser" sont les boutons habituels d'affichage (o
 #### Commandes EcoWatt
 
 Pour EcoWatt, 2 commandes existent :
+
 - Aujourd'hui : permet de savoir la tendance pour le jour même quant à la tension sur le réseau électrique,
 - Demain : permet de savoir la tendance pour le lendemain quant à la tension sur le réseau électrique.
 
 Pour ces deux commandes les valeurs peuvent être :
+
   - Verte : la tendance est verte ("tout va bien"),
   - Orange : la tendance est orange (il faut faire attention à ses consommations),
   - Rouge : la tendance est rouge (il faut réduire ses consommations afin d'éviter une coupure généralisée).
