@@ -7,8 +7,8 @@
 
 >**IMPORTANT**
 >
->Changelog détaillé : [Stable](https://github.com/jeedom/plugin-ecowatt/commits/master)
->    [Beta](https://github.com/jeedom/plugin-ecowatt/commits/beta)
+>Changelog détaillé : [Version stable](https://github.com/jeedom/plugin-ecowatt/commits/master)
+>    [Version Beta](https://github.com/jeedom/plugin-ecowatt/commits/beta)
 
 # 08/09/2022
 
