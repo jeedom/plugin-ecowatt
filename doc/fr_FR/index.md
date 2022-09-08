@@ -25,8 +25,8 @@ Ensuite, vous avez deux autres paramètres à configurer :
 
 - *Type de source de données* : EJP ou EcoWatt,
 - *Région* : afin de préciser les informations de la région que vous souhaitez récupérer. En fonction du choix fait sur le type de source de données, le choix des régions n'est pas le même, puisque chacun d'eux s'applique sur des régions différentes.
--- Les régions pour EcoWatt sont : Bretagne ou Provence-Alpes-Côtes d'Azur,
--- Les régions EJP sont : Zone Nord, Zone Sud, Zone Ouest, Zone Provence-Alpes-Côtes d'Azur.
+  - Les régions pour EcoWatt sont : Bretagne ou Provence-Alpes-Côtes d'Azur,
+  - Les régions EJP sont : Zone Nord, Zone Sud, Zone Ouest, Zone Provence-Alpes-Côtes d'Azur.
 
 
 En-dessous vous retrouvez la liste des commandes : 
