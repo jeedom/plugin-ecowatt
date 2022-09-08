@@ -6,8 +6,10 @@
 	"author" : "Marie",
 	"require" : "3.0",
 	"category" : "energy",
-	"changelog" : "https://github.com/jeedom/plugin-ecowatt/blob/stable/doc/#language#/changelog.asciidoc",
-	"documentation" : "https://github.com/jeedom/plugin-ecowatt/blob/stable/doc/#language#/index.asciidoc",
+	"changelog" : "https://github.com/jeedom/plugin-ecowatt/blob/master/doc/fr_FR/changelog.md",
+	"documentation" : "https://github.com/jeedom/plugin-ecowatt/blob/master/doc/fr_FR/index.md",
+	"changelog_beta" : "https://github.com/jeedom/plugin-ecowatt/blob/beta/doc/fr_FR/changelog.md",
+	"documentation_beta" : "https://github.com/jeedom/plugin-ecowatt/blob/beta/doc/fr_FR/index.md",
 	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
-"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }
