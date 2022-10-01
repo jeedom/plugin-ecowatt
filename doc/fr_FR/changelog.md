@@ -12,7 +12,7 @@
 
 # 08/09/2022
 
-- Correction accés à la documentation.
+- Correction accès à la documentation.
 - Nettoyage
 
 # 07/09/2022
