@@ -40,14 +40,14 @@ class ecowatt extends eqLogic {
 	}
 
 	public static function valueFromUrl($_url) {
-    $request_http = new com_http($_url);
-    $request_http->setUserAgent('Wget/1.20.3 (linux-gnu)'); // User-Agent idem HA
-    $dataUrl = $request_http->exec();
-    if (!is_json($dataUrl)) {
-        return;
-    }
-    return json_decode($dataUrl, true);
-}
+		$request_http = new com_http($_url);
+		$request_http->setUserAgent('Wget/1.20.3 (linux-gnu)'); // User-Agent idem HA
+		$dataUrl = $request_http->exec($_timeout = 10);
+		if (!is_json($dataUrl)) {
+			return;
+		}
+		return json_decode($dataUrl, true);
+	}
 
 	/*     * *********************Méthodes d'instance************************* */
 
@@ -197,28 +197,28 @@ class ecowatt extends eqLogic {
 				break;
 			case 'tempo':
 				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant=' .date('Y-m-d'));
-        $this->fillValue('today', 'couleurJourJ', $tempodays);
-        $this->fillValue('tomorrow', 'couleurJourJ1', $tempodays);
-        // message::add('TempoEDF 1', $tempodays);
+				$this->fillValue('today', 'couleurJourJ', $tempodays);
+				$this->fillValue('tomorrow', 'couleurJourJ1', $tempodays);
+				// message::add('TempoEDF 1', $tempodays);
 
-        $tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO');
-        $this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
-        $this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
-        $this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
-        // message::add('TempoEDF 2', $tempodays);
+				$tempodays = self::valueFromUrl('https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO');
+				$this->fillValue('white-remainingDays', 'PARAM_NB_J_BLANC', $tempodays);
+				$this->fillValue('blue-remainingDays', 'PARAM_NB_J_BLEU', $tempodays);
+				$this->fillValue('red-remainingDays', 'PARAM_NB_J_ROUGE', $tempodays);
+				// message::add('TempoEDF 2', $tempodays);
 
-        $t = time();
-        if(date('m',$t)<9) { // Avant 1er septembre, L'année en cours est-elle bissextile?
-          $bisext = date('L',$t);
-        } else { // Après septembre, l'année prochaine est-elle bissextile?
-          $t2 = mktime(12,0,0,1,1,date('Y',$t)+1);
-          $bisext = date('L',$t2);
-        }
-        $nbTotBlue = 300 + $bisext;
-        $this->checkAndUpdateCmd('blue-totalDays', $nbTotBlue); // Total jours bleu
-        $this->checkAndUpdateCmd('white-totalDays', 43); // Total jours blanc
-        $this->checkAndUpdateCmd('red-totalDays', 22);   // Total jours rouge
-        break;
+				$t = time();
+				if(date('m',$t)<9) { // Avant 1er septembre, L'année en cours est-elle bissextile?
+					$bisext = date('L',$t);
+				} else { // Après septembre, l'année prochaine est-elle bissextile?
+					$t2 = mktime(12,0,0,1,1,date('Y',$t)+1);
+					$bisext = date('L',$t2);
+				}
+				$nbTotBlue = 300 + $bisext;
+				$this->checkAndUpdateCmd('blue-totalDays', $nbTotBlue); // Total jours bleu
+				$this->checkAndUpdateCmd('white-totalDays', 43); // Total jours blanc
+				$this->checkAndUpdateCmd('red-totalDays', 22);   // Total jours rouge
+				break;
 		}
 		$this->refreshWidget();
 	}
